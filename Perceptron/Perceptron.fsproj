@@ -6,7 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="SyntheticData.fs" />
         <Compile Include="Program.fs"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="TorchSharp-cpu" Version="0.105.0" />
     </ItemGroup>
 
 </Project>
