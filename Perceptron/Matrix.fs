@@ -21,8 +21,8 @@ module private JaggedList =
 
 type MatrixBuilder<'T,'S>(factory: 'T array list -> 'S) =
     member _.Yield(row: #('T seq )) = Array.ofSeq row |> List.singleton    
-    member _.Run =
-        function
+    member _.Run (rows: 'T array list)=
+        match rows with
         | JaggedList.Rectangular rows -> factory rows
         | _ -> ArgumentException("Input must be rectangular") |> raise
     member _.Zero() = [[||]]
