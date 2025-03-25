@@ -19,7 +19,7 @@ type Net(n_in: int) as this =
          let x = outpt.call(z).sigmoid_()
          x.MoveToOuterDisposeScope()
 
-module SyntheticData =
+module Net =
     let create_data_file(net: Net, n_in: int64, fileName: string, n_items: int64) =
         let x_lo = -1.0
         let x_hi = 1.0

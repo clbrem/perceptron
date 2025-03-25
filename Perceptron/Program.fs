@@ -1,13 +1,14 @@
 ﻿// For more information see https://aka.ms/fsharp-console-apps
 open Perceptron
-open Perceptron.SyntheticData
+open Perceptron.Net
 open TorchSharp
 
-let net = new Net(6)
-do create_data_file(net, 6L, "train.dat", 2000L)
-do create_data_file(net, 6L, "test.dat", 400L)
-let x_test, y_test = load_data_file "test.dat"
+open Plotly.NET
 
-let lin1 = torch.nn.Linear(6, 10)
+let zeroIndex = torch.TensorIndex.Single(0)
+let gbm = new Gbm(50, 0.1)
+let tt = TensorBuilder<float>()
+let data = gbm.forward(tt{yield[1]},tt{yield[1]},tt{yield[100]})[torch.TensorIndex.Ellipsis, zeroIndex, zeroIndex, zeroIndex]
 
-printfn "%s" (lin1.weight.ToString(TensorStringStyle.Julia))
+
+Chart.Scatter(data.ToArray(), [1.0..50.0],StyleParam.Mode.Lines_Markers)
