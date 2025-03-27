@@ -2,7 +2,7 @@ namespace Perceptron
 open TorchSharp
 open type TorchSharp.TensorExtensionMethods
 
-type Net(n_in: int) as this =
+type Net(n_in: int)  =
      inherit torch.nn.Module<torch.Tensor,torch.Tensor>("Net")     
      let hidl = torch.nn.Linear(n_in, 10)
      let outpt = torch.nn.Linear(10, 1)
