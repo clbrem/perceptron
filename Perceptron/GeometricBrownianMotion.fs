@@ -4,14 +4,16 @@ open type TorchSharp.TensorExtensionMethods
 
 type Gbm(n_steps: int64,dt: float) =
     inherit torch.nn.Module<torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor>("Geometric_Brownian_Motion")
+    let n = n_steps - 1L
     member _.dt = dt
     member _.n_steps = n_steps
+    
     override this.forward(x0, mu, sigma) =
         let mu_flat, sigma_flat, x0_flat = mu.flatten(), sigma.flatten(), x0.flatten()
         let mu_n,sigma_n,x0_n = mu_flat.size(0), sigma_flat.size(0), x0_flat.size(0)
-        let prod_n = n_steps * mu_n * sigma_n * x0_n 
+        let prod_n = n * mu_n * sigma_n * x0_n 
         let t =
-            torch.normal(torch.zeros(prod_n), torch.sqrt(dt)*torch.ones(prod_n)).reshape(n_steps,x0_n,mu_n,sigma_n)
+            torch.normal(torch.zeros(prod_n), torch.sqrt(dt)*torch.ones(prod_n)).reshape(n,x0_n,mu_n,sigma_n)
         let mu = mu_flat.reshape(1L,1L,mu_n,1L)
         let sigma = sigma_flat.reshape(1L,1L,1L,sigma_n)
         let x0 = x0_flat.reshape(1L,x0_n,1L,1L)
