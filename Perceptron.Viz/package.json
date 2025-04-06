@@ -1,0 +1,18 @@
+{
+  "name": "perceptron.viz",
+  "version": "1.0.0",
+  "main": "Program.fs.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.5"
+  }
+}

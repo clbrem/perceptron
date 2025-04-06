@@ -7,3 +7,6 @@ riderModule.iml
 *.dat.*
 /data/
 *.sln.DotSettings*
+**/node_modules/*
+**/.config
+**/*.fs.[tj]s
