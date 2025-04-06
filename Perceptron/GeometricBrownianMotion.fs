@@ -2,7 +2,14 @@ namespace Perceptron
 open TorchSharp
 open type TorchSharp.TensorExtensionMethods
 
-type Gbm(n_steps: int64,dt: float) =
+module Gbm =
+    let trainingData (n_preview: int64, n_observe: int64) (input: torch.Tensor)=
+        let lagged = input.unfold(0L, n_preview+ n_observe, 1L)
+        let split = lagged.tensor_split([|n_preview; n_observe|], 1L)
+        split[0], split[1]
+        
+
+type Gbm(n_steps: int64,dt: float32) =
     inherit torch.nn.Module<torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor>("Geometric_Brownian_Motion")
     let n = n_steps - 1L
     member _.dt = dt
@@ -21,12 +28,12 @@ type Gbm(n_steps: int64,dt: float) =
             torch.vstack(
                 [|
                   torch.ones(1L, x0_n,mu_n,sigma_n)
-                  torch.exp((mu - torch.pow(sigma,torch.tensor(2.0))/2.0)*dt + sigma*t)
+                  torch.exp((mu - torch.pow(sigma,torch.tensor(2.0f))/2.0f)*dt + sigma*t)
                 |]
             )
             ,0)*x0
         
-type GbmStep(mu: torch.Tensor, sigma: torch.Tensor, dt: float) =    
+type GbmStep(mu: torch.Tensor, sigma: torch.Tensor, dt: float32) =    
     inherit torch.nn.Module<torch.Tensor,torch.Tensor>("Geometric_Brownian_Motion_Step")
     let mu_flat, sigma_flat = mu.flatten(), sigma.flatten()
     let mu_n,sigma_n = mu_flat.size(0), sigma_flat.size(0)
@@ -41,6 +48,6 @@ type GbmStep(mu: torch.Tensor, sigma: torch.Tensor, dt: float) =
     override this.forward(input) =
         let dims = [ if input.size(0) = 1 then mu_n else 1L
                      if input.size(1) = 1 then sigma_n else 1L]
-        input.repeat(dims[0],dims[1]) * torch.exp((_mu - torch.pow(_sigma,torch.tensor(2.0))/2.0)*dt + _sigma * t())
+        input.repeat(dims[0],dims[1]) * torch.exp((_mu - torch.pow(_sigma,torch.tensor(2.0f))/2.0f)*dt + _sigma * t())
                 
     

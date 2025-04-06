@@ -5,18 +5,19 @@ open Plotly.NET
 
 let zeroIndex = torch.TensorIndex.Single(0)
 let n_points = 1000
-let gbm = new Gbm(n_points, 0.1)
+let gbm = new Gbm(n_points, 0.1f)
 
 let tt = TensorBuilder<float>()
-let gbmStep = new GbmStep(tt{yield[0.01;0.02;0.03]}, tt{yield[0.1]},0.1)
+let ttf = TensorBuilder<float32>()
+let gbmStep = new GbmStep(ttf{yield[0.01f;0.02f;0.03f]}, ttf{yield[0.1f]},0.1f)
 
-let data = gbm.forward(tt{yield[100]},tt{yield[0.01;0.02;0.03]},tt{yield[0.1]})
+let data = gbm.forward(ttf{yield[100f]},ttf{yield[0.01f;0.02f;0.03f]},ttf{yield[0.1f]})
 //data.ToString(TensorStringStyle.Julia) |> printfn "%A"
 
 let series(i:int64,j:int64,k:int64) =
     data[torch.TensorIndex.Ellipsis,torch.TensorIndex.Single(i),torch.TensorIndex.Single(j),torch.TensorIndex.Single(k)]
 
-gbmStep.forward(tt {yield[100]})
+gbmStep.forward(ttf {yield[100f]})
 |> _.ToString(TensorStringStyle.Julia)
 |> printfn "%A"
 // [

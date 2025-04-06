@@ -1,0 +1,1 @@
+dotnet fable watch --lang typescript --run npx vite

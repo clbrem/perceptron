@@ -14,7 +14,7 @@ type Test(logger: ITestOutputHelper) =
     let tt = TensorBuilder<float>()
     let ttf = TensorBuilder<float32>()
     
-    let gbm = new Gbm(50, 0.1)
+    let gbm = new Gbm(1000, 0.001f)
     
     [<Fact>]
     let ``Test Loss Model``() =
@@ -47,19 +47,14 @@ type Test(logger: ITestOutputHelper) =
             
         t[0].size() |> Assert.EqualTo [|3L|]
     
-    [<Fact>]
-    let ``My test`` () =
-        let mat = tt {yield [1;2;3;4;5]}
-        mat[0].set_(0.0) |> ignore
-        mat.ToString(TensorStringStyle.Julia)
-        |> Assert.FailWith "%s"
+
         
     [<Fact>]
     let ``Can GBM``() =
         let zeroIndex = torch.TensorIndex.Single(0)
         let data = gbm.forward(tt{yield[1]},tt{yield[1]},tt{yield[100]})
         let series = data[torch.TensorIndex.Ellipsis,zeroIndex,zeroIndex,zeroIndex]
-        series.size() |> Assert.EqualTo  [|50L|]
+        series.size() |> Assert.EqualTo  [|1000L|]
         
         
         
@@ -88,15 +83,23 @@ type Test(logger: ITestOutputHelper) =
             output.backward()
             logger.WriteLine(sprintf "grad is %s" (model.parameters() |> Seq.head |> _.ToString(TensorStringStyle.Julia)))                
             optimizer.step() |> ignore
-        printfn "Epoch %d" 2  
-                        
+        printfn "Epoch %d" 2
+        
+        
+        
+    [<Fact>]
+    let ``Can Reshape``() =
+        let data = gbm.forward(ttf{yield[0.1f]},ttf{yield[0.01f]},ttf{yield[100f]}).squeeze() 
+        let input, observed = Gbm.trainingData (10, 10) (data.squeeze())
+        use lossModule= new ShortTermLoss(torch.tensor(0.001f))
+        use model = torch.nn.Linear(10,3,dtype=torch.float32)
+        let loss (pred: torch.Tensor) (observed: torch.Tensor) = lossModule.forward(pred, observed)
+        let pred = model.forward(input) 
+        loss pred observed
+        
+
         
         
         
         
-        
-        
-        
-    
-    
     
