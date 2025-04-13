@@ -3,80 +3,30 @@ open System
 
 open Browser.Types
 open Fable.Core
+open Fable.Core.JS
+open Fetch
 
-module Vega =
-// https://github.com/vega/vega-tooltip/blob/0356dfdcb61c31ccb082423698ddfa5ec606e2dc/src/defaults.ts#L8
-//     export interface Options {
-//   /**
-//    * X offset.
-//    */
-//   offsetX?: number;
-//
-//   /**
-//    * Y offset.
-//    */
-//   offsetY?: number;
-//
-//   /**
-//    * ID of the tooltip element.
-//    */
-//   id?: string;
-//
-//   /**
-//    * ID of the tooltip CSS style.
-//    */
-//   styleId?: string;
-//
-//   /**
-//    * The name of the theme. You can use the CSS class called [THEME]-theme to style the tooltips.
-//    *
-//    * There are two predefined themes: "light" (default) and "dark".
-//    */
-//   theme?: string;
-//
-//   /**
-//    * Do not use the default styles provided by Vega Tooltip. If you enable this option, you need to use your own styles. It is not necessary to disable the default style when using a custom theme.
-//    */
-//   disableDefaultStyle?: boolean;
-//
-//   /**
-//    * HTML sanitizer function that removes dangerous HTML to prevent XSS.
-//    *
-//    * This should be a function from string to string. You may replace it with a formatter such as a markdown formatter.
-//    */
-//   sanitize?: (value: any) => string;
-//
-//   /**
-//    * The maximum recursion depth when printing objects in the tooltip.
-//    */
-//   maxDepth?: number;
-//
-//   /**
-//    * A function to customize the rendered HTML of the tooltip.
-//    * @param value A value string, or object of value strings keyed by field
-//    * @param sanitize The `sanitize` function from `options.sanitize`
-//    * @param baseURL The `baseURL` from `options.baseURL`
-//    * @returns {string} The returned string will become the `innerHTML` of the tooltip element
-//    */
-//   formatTooltip?: (value: any, valueToHtml: (value: any) => string, maxDepth: number, baseURL: string) => string;
-//
-//   /**
-//    * The baseurl to use in image paths.
-//    */
-//   baseURL?: string;
-//
-//   /**
-//    * The snap reference for the tooltip.
-//    */
-//   anchor?: 'cursor' | 'mark';
-//
-//   /**
-//    * The position of the tooltip relative to the anchor.
-//    *
-//    * Only valid when `anchor` is set to 'mark'.
-//    */
-//   position?: Position | Position[];
-// }
+module Vega =    
+    type Record = Map<string, unit> 
+    
+    type I18N = {
+        [<CompiledName("CLICK_TO_VIEW_ACTIONS")>] ClickToViewActions: string
+        [<CompiledName("COMPILED_ACTION")>] CompiledAction: string
+        [<CompiledName("EDITOR_ACTION")>] EditorAction: string
+        [<CompiledName("PNG_ACTION")>] PngAction: string
+        [<CompiledName("SOURCE_ACTION")>] SourceAction: string
+        [<CompiledName("SVG_ACTION")>] SvgAction: string
+    } with 
+        static member Default =
+            {
+                ClickToViewActions = "Click to view actions"
+                CompiledAction = "View Compiled Vega"
+                EditorAction = "Open in Vega Editor"
+                PngAction = "Save as PNG"
+                SourceAction = "View Source"
+                SvgAction = "Save as SVG"
+            }
+
     type TooltipOptions = {
         offsetX: int option
         offsetY: int option
@@ -106,6 +56,48 @@ module Vega =
     // export type TooltipHandler = (handler: any, event: MouseEvent, item: Item, value: any) => void;
     type TooltipHandler =
         System.Func<obj, MouseEvent, obj, obj, unit>
+    type UriContext =
+            | [<CompiledName("href")>] Href
+            | [<CompiledName("image")>] Image
+    type DataFlowContext =
+        | [<CompiledName("dataflow")>] Dataflow
+    type UriLoader =
+        {
+            baseUrl: string
+            mode: string
+            defaultProtocol: string
+            target: string
+            rel: string
+            http: RequestInit
+            crossorigin: string
+            context: UriContext
+        }
+    type DataFlowLoader =
+        {
+            context: DataFlowContext
+            response: string
+        }
+        
+        
+    
+    type LoaderOptionsWithContext =
+        U2<UriLoader, DataFlowLoader>
+    
+    type Loader = {
+        load: System.Func<string, LoaderOptionsWithContext option, Promise<string>>
+        sanitize: System.Func<string, LoaderOptionsWithContext option, Promise<{|href: string|}>>
+        http: System.Func<string, RequestInit, Promise<string>>
+        file: System.Func<string, Promise<string>>
+        }
+    type LoaderOptions =
+        {
+            baseURL: string option
+            mode: string option
+            defaultProtocol: string option
+            target: string option
+            http: RequestInit option
+        }
+    
         
     type Actions = {
         export: U2<bool, {|svg: bool option; png: bool option|}> option
@@ -113,6 +105,7 @@ module Vega =
         editor: bool option
         compiled: bool option
     }
+
     type EmbedOptions = {
         bind: U2<HTMLElement, string> option
         actions: U2<bool, Actions> option
@@ -120,10 +113,37 @@ module Vega =
         theme: string option
         defaultStyle: U2<bool,string> option
         logLevel: int option
-        
+        loader: U2<Loader,LoaderOptions> option
+        renderer: Renderers option
+        tooltip: U3<TooltipHandler, TooltipOptions, bool> option
+        // Kind of punting on this one
+        patch:  string option
+        width: int option
+        height: int option
+        padding: U2<int, {|top: int; right: int; bottom: int; left: int|}> option
+        scaleFactor: U2<int, {|svg: int; png: int |}> option
+        // Should include Config type
+        config: string option
+        sourceHeader: string option
+        sourceFooter: string option
+        editorUrl: string option
+        // add Hover class
+        hover: bool option
+        i18n: I18N option
+        downloadFileName: string option
+        formatLocale: obj option
+        timeFormatLocale: obj option
+        expressionFunctions: obj option //later        
+        ast: bool option
+        expr: obj option //later
+        viewClass: obj option //later
+        forceActionsMenu: bool option
     }
+    
         
     [<Import("default", "vega-embed")>]
-    let embed : System.Func<U2<HTMLElement,string>,U2<obj,string>,unit> = jsNative
+    let embed : System.Func<U2<HTMLElement,string>,U2<obj,string>,obj> = jsNative
+    [<Import("default", "vega-embed")>]
+    let embedOpts : System.Func<U2<HTMLElement,string>,U2<obj,string>,EmbedOptions,obj> = jsNative
     
     

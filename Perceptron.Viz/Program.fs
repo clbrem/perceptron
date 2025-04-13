@@ -1,39 +1,38 @@
 ﻿open Browser
-open Browser.Types
-open Fable.Core
-open Fable.Core.JS
 open Perceptron.Viz
+open Fable.Core
 
-
+  
 
 [<EntryPoint>]
 let main args =
     
     let div = document.createElement "div"
-    div.innerHTML <- """
-        <div id="vis"></div>   
-        """
-      
+    let innerDiv  = document.createElement "div"
+    innerDiv.id <- "vis"
+    div.appendChild innerDiv |> ignore
+        
     
-    let sch =
-        """
-        {
-              "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-              "description": "A simple bar chart with embedded data.",
-              "data": {
-                "values": [
-                  {"a": "A", "b": 28}, {"a": "B", "b": 55}, {"a": "C", "b": 43},
-                  {"a": "D", "b": 91}, {"a": "E", "b": 81}, {"a": "F", "b": 53},
-                  {"a": "G", "b": 19}, {"a": "H", "b": 87}, {"a": "I", "b": 52}
-                ]
-              },
-              "mark": "bar",
-              "encoding": {
-                "x": {"field": "a", "type": "nominal", "axis": {"labelAngle": 0}},
-                "y": {"field": "b", "type": "quantitative"}
-              }
-        }        
-        """        
+    
+    
+    let sch =        
+            {|
+              
+               description= "A simple bar chart with embedded data."
+               data =
+                {|
+                    values = [
+                      {|a= "A"; b= 28|}; {|a= "B"; b= 55|}; {|a= "C";b= 43|};
+                      {|a= "D"; b= 91|}; {|a= "E"; b =81|}; {|a= "F"; b=53|};
+                      {|a="G";b= 19|}; {|a= "H";b= 87|}; {|a= "I";b= 52|}
+                    ]
+                |};
+               mark= "bar";
+               
+        |}        
+        
+    Vega.embed.Invoke(U2.Case2 "#vis", U2.Case1 sch) |> ignore
+        
 
     0
     
