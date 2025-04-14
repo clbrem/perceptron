@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Vega.Color.fs" />
         <Compile Include="Vega.fs" />
         <Compile Include="Program.fs" />
         <Content Include="watch.sh" />
@@ -19,6 +20,7 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="testing.ts" />
+      <Content Include="index.html" />
     </ItemGroup>
 
 </Project>
