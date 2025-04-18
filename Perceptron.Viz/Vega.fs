@@ -4,6 +4,7 @@ open Browser.Types
 open Fable.Core
 open Fable.Core.JS
 open Fetch
+open Vega
 
 
 module Vector =
@@ -614,22 +615,20 @@ module Vega =
               //
                //Used in conjunction with fit, provides the pixel area to which the projection should be automatically fit.
                //
-              extent?: Vector2<Vector2<number | SignalRef>> | SignalRef;
+              extent: U2<Vec2<Vec2<U2<int,SignalRef>>>,  SignalRef> option
             
               //
                //Used in conjunction with fit, provides the width and height in pixels of the area to which the projection should be automatically fit.
                //
-              size?: Vector2<number | SignalRef> | SignalRef;
+              size: U2<Vec2<U2<int,SignalRef>>,SignalRef> option
             
-              // TODO: use a union tagged by the projection type to determine which of the following is applicable
-              // The following properties are all supported for specific types of projections. Consult the d3-geo-projection library for more information: https://github.com/d3/d3-geo-projection.
             
               //
                //The coefficient parameter for the `hammer` projection.
                //
                //__Default value:__ `2`
                //
-              coefficient?: number | SignalRef;
+              coefficient: U2<int, SignalRef>
             
               //
                //For the `satellite` projection, the distance from the center of the
@@ -640,21 +639,21 @@ module Vega =
                //
                //__Default value:__ `2.0`
                //
-              distance?: number | SignalRef;
+              distance: U2<float, SignalRef>
             
               //
                //The fraction parameter for the `bottomley` projection.
                //
                //__Default value:__ `0.5`, corresponding to a sin(ψ) where ψ = π/6.
                //
-              fraction?: number | SignalRef;
+              fraction: U2<float, SignalRef> option
             
               //
                //The number of lobes in projections that support multi-lobe views:
                //`berghaus`, `gingery`, or `healpix`.
                //The default value varies based on the projection type.
                //
-              lobes?: number | SignalRef;
+              lobes: U2<int, SignalRef> option
             
               //
                //The parallel parameter for projections that support it:
@@ -663,46 +662,138 @@ module Vega =
                //or `rectangularPolyconic`.
                //The default value varies based on the projection type.
                //
-              parallel?: number | SignalRef;
+              [<CompiledName("parallel")>]
+              projectionParallel: U2<float, SignalRef> option
             
               //
                //The radius parameter for the `airy` or `gingery` projection.
                //The default value varies based on the projection type.
                //
-              radius?: number | SignalRef;
+              radius: U2<float, SignalRef> option
             
               //
                //The ratio parameter for the `hill`, `hufnagel`, or `wagner` projections.
                //The default value varies based on the projection type.
                //
-              ratio?: number | SignalRef;
+              ratio: U2<float, SignalRef> option
             
               //
                //The spacing parameter for the `lagrange` projection.
                //
                //__Default value:__ `0.5`
                //
-              spacing?: number | SignalRef;
+              spacing: U2<float, SignalRef> option;
             
               //
                //The tilt angle (in degrees) for the `satellite` projection.
                //
                //__Default value:__ `0`.
                //
-              tilt?: number | SignalRef;
+              tilt: U2<int,  SignalRef> option
             
               //
-               //Sets whether or not the x-dimension is reflected (negated) in the output.
+               //Sets whether the x-dimension is reflected (negated) in the output.
                //
-              reflectX?: boolean | SignalRef;
+              reflectX: U2< bool,SignalRef> option;
             
               //
-               //Sets whether or not the y-dimension is reflected (negated) in the output.
+               //Sets whether the y-dimension is reflected (negated) in the output.
                //
-              reflectY?: boolean | SignalRef;
+              reflectY: U2<bool, SignalRef> option;
     
             }
         
+        type RangeEnum =
+            | [<CompiledName("width")>] Width
+            | [<CompiledName("height")>] Height
+            | [<CompiledName("symbol")>] Symbol
+            | [<CompiledName("category")>] Category
+            | [<CompiledName("ordinal")>] Ordinal
+            | [<CompiledName("ramp")>] Ramp            
+            | [<CompiledName("diverging")>] Diverging
+            | [<CompiledName("heatmap")>] Heatmap
+        type RangeRawArray = U2<int,SignalRef> []
+        [<Erase>]
+        type RangeRaw =
+            | RangeBool of bool
+            | RangeString of string
+            | RangeNumber of int
+            | RangeSignal of SignalRef
+            | RangeRawArray of RangeRawArray
+        type RangeObj = {
+            scheme : U4<string,string[],ColorScheme,SignalRef>
+            count: U2<int,SignalRef> option
+            extent: U2<U2<int,SignalRef>[], SignalRef> option
+        }
+        [<Erase>]
+        type RangeScheme =
+            | RangeEnum of RangeEnum
+            | RangeRaw of RangeRaw
+            | RangeSignal of SignalRef
+            | RangeObj of RangeObj
+        type SymbolShapeNamed =           
+          | [<CompiledName("circle")>] Circle
+          | [<CompiledName("square")>] Square
+          | [<CompiledName("cross")>] Cross
+          | [<CompiledName("diamond")>] Diamond
+          | [<CompiledName("triangle-up")>] TriangleUp
+          | [<CompiledName("triangle-down")>] TriangleDown
+          | [<CompiledName("triangle-right")>] TriangleRight
+          | [<CompiledName("triangle-left")>] TriangleLeft
+          | [<CompiledName("arrow")>] Arrow
+          | [<CompiledName("triangle")>] Triangle
+          | [<CompiledName("wedge")>] Wedge
+          | [<CompiledName("stroke")>] Stroke
+        type SymbolShape =  U2<SymbolShapeNamed,string>            
+        type RangeConfig = {
+            category: U2<RangeScheme, Color[]> option
+            diverging: U2<RangeScheme, Color[]> option
+            heatmap: U2<RangeScheme, Color[]> option
+            ordinal: U2<RangeScheme, Color[]> option
+            ramp: U2<RangeScheme, Color[]> option
+            symbol: SymbolShape[] option
+        }
+        
+        type Expr = | Todo
+        type SignalValue = obj
+        type Stream = | Todo        
+        type EventSelector = | Todo
+        type EventListener = | Todo
+
+        type OnEvent =
+            {
+                encode: string option
+                update: Update option
+                events: U2<Events, EventListener[]>
+                force: bool option
+            }
+
+        
+        
+
+        type Binding = | Todo
+
+        type InitSignal =
+            {
+                name: string
+                description: string option
+                on: OnEvent[] option
+                value: SignalValue option
+                init: Expr
+                bind: Binding option
+            }
+        type NewSignal =
+            {
+                name: string
+                description: string option
+                on: OnEvent[] option
+                value: SignalValue option
+                react: bool option
+                update: Expr option
+                bind: Binding option                
+            }
+        
+                    
         type Config = {
             autosize: U2<AutoSize, SignalRef> option
             background: U2<Vega.Color, SignalRef> option
@@ -713,9 +804,9 @@ module Vega =
             style: Map<string, MarkConfig> option
             legend: LegendConfig option
             title: TitleConfig option
-    //        projection: ProjectionConfig option
-    //        range: RangeConfig
-    //        signals: U2<InitSignal,NewSignal>[] option
+            projection: ProjectionConfig option
+            range: RangeConfig option
+            signals: U2<InitSignal,NewSignal>[] option
         }
     type Spec =
         {
