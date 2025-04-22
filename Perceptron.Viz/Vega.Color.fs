@@ -1,504 +1,314 @@
 namespace Vega
 open Fable.Core
 
-type NamedColor =  
-  | [<CompiledName("black")>]  Black
-  | [<CompiledName("silver")>]  Silver
-  | [<CompiledName("gray")>] Gray
-  | [<CompiledName("white")>] White
-  | [<CompiledName("maroon")>] Maroon
-  | [<CompiledName("red")>] Red
-  | [<CompiledName("purple")>] Purple
-  | [<CompiledName("fuchsia")>] Fuchsia
-  | [<CompiledName("green")>] Green
-  | [<CompiledName("lime")>] Lime
-  | [<CompiledName("olive")>] Olive
-  | [<CompiledName("yellow")>] Yellow
-  | [<CompiledName("navy")>] Navy
-  | [<CompiledName("blue")>] Blue
-  | [<CompiledName("teal")>] Teal
-  | [<CompiledName("aqua")>] Aqua
-  | [<CompiledName("orange")>] Orange
-  | [<CompiledName("aliceblue")>] Aliceblue
-  | [<CompiledName("antiquewhite")>] Antiquewhite
-  | [<CompiledName("aquamarine")>] Aquamarine
-  | [<CompiledName("azure")>] Azure
-  | [<CompiledName("beige")>] Beige
-  | [<CompiledName("bisque")>] Bisque
-  | [<CompiledName("blanchedalmond")>] Blanchedalmond
-  | [<CompiledName("blueviolet")>] Blueviolet
-  | [<CompiledName("brown")>] Brown
-  | [<CompiledName("burlywood")>] Burlywood
-  | [<CompiledName("cadetblue")>] Cadetblue
-  | [<CompiledName("chartreuse")>] Chartreuse
-  | [<CompiledName("chocolate")>] Chocolate
-  | [<CompiledName("coral")>] Coral
-  | [<CompiledName("cornflowerblue")>] Cornflowerblue
-  | [<CompiledName("cornsilk")>] Cornsilk
-  | [<CompiledName("crimson")>] Crimson
-  | [<CompiledName("cyan")>] Cyan
-  | [<CompiledName("darkblue")>] Darkblue
-  | [<CompiledName("darkcyan")>] Darkcyan
-  | [<CompiledName("darkgoldenrod")>] Darkgoldenrod
-  | [<CompiledName("darkgray")>] Darkgray
-  | [<CompiledName("darkgreen")>] Darkgreen
-  | [<CompiledName("darkgrey")>] Darkgrey
-  | [<CompiledName("darkkhaki")>] Darkkhaki
-  | [<CompiledName("darkmagenta")>] Darkmagenta
-  | [<CompiledName("darkolivegreen")>] Darkolivegreen
-  | [<CompiledName("darkorange")>] Darkorange
-  | [<CompiledName("darkorchid")>] Darkorchid
-  | [<CompiledName("darkred")>] Darkred
-  | [<CompiledName("darksalmon")>] Darksalmon
-  | [<CompiledName("darkseagreen")>] Darkseagreen
-  | [<CompiledName("darkslateblue")>] Darkslateblue
-  | [<CompiledName("darkslategray")>] Darkslategray
-  | [<CompiledName("darkslategrey")>] Darkslategrey
-  | [<CompiledName("darkturquoise")>] Darkturquoise
-  | [<CompiledName("darkviolet")>] Darkviolet
-  | [<CompiledName("deeppink")>] Deeppink
-  | [<CompiledName("deepskyblue")>] Deepskyblue
-  | [<CompiledName("dimgray")>] Dimgray
-  | [<CompiledName("dimgrey")>] Dimgrey
-  | [<CompiledName("dodgerblue")>] Dodgerblue
-  | [<CompiledName("firebrick")>] Firebrick
-  | [<CompiledName("floralwhite")>] Floralwhite
-  | [<CompiledName("forestgreen")>] Forestgreen
-  | [<CompiledName("gainsboro")>] Gainsboro
-  | [<CompiledName("ghostwhite")>] Ghostwhite
-  | [<CompiledName("gold")>] Gold
-  | [<CompiledName("goldenrod")>] Goldenrod
-  | [<CompiledName("greenyellow")>] Greenyellow
-  | [<CompiledName("grey")>] Grey
-  | [<CompiledName("honeydew")>] Honeydew
-  | [<CompiledName("hotpink")>] Hotpink
-  | [<CompiledName("indianred")>] Indianred
-  | [<CompiledName("indigo")>] Indigo
-  | [<CompiledName("ivory")>] Ivory
-  | [<CompiledName("khaki")>] Khaki
-  | [<CompiledName("lavender")>] Lavender
-  | [<CompiledName("lavenderblush")>] Lavenderblush
-  | [<CompiledName("lawngreen")>] Lawngreen
-  | [<CompiledName("lemonchiffon")>] Lemonchiffon
-  | [<CompiledName("lightblue")>] Lightblue
-  | [<CompiledName("lightcoral")>] Lightcoral
-  | [<CompiledName("lightcyan")>] Lightcyan
-  | [<CompiledName("lightgoldenrodyellow")>] Lightgoldenrodyellow
-  | [<CompiledName("lightgray")>] Lightgray
-  | [<CompiledName("lightgreen")>] Lightgreen
-  | [<CompiledName("lightgrey")>] Lightgrey
-  | [<CompiledName("lightpink")>] Lightpink
-  | [<CompiledName("lightsalmon")>] Lightsalmon
-  | [<CompiledName("lightseagreen")>] Lightseagreen
-  | [<CompiledName("lightskyblue")>] Lightskyblue
-  | [<CompiledName("lightslategray")>] Lightslategray
-  | [<CompiledName("lightslategrey")>] Lightslategrey
-  | [<CompiledName("lightsteelblue")>] Lightsteelblue
-  | [<CompiledName("lightyellow")>] Lightyellow
-  | [<CompiledName("limegreen")>] Limegreen
-  | [<CompiledName("linen")>] Linen
-  | [<CompiledName("magenta")>] Magenta
-  | [<CompiledName("mediumaquamarine")>] Mediumaquamarine
-  | [<CompiledName("mediumblue")>] Mediumblue
-  | [<CompiledName("mediumorchid")>] Mediumorchid
-  | [<CompiledName("mediumpurple")>] Mediumpurple
-  | [<CompiledName("mediumseagreen")>] Mediumseagreen
-  | [<CompiledName("mediumslateblue")>] Mediumslateblue
-  | [<CompiledName("mediumspringgreen")>] Mediumspringgreen
-  | [<CompiledName("mediumturquoise")>] Mediumturquoise
-  | [<CompiledName("mediumvioletred")>] Mediumvioletred
-  | [<CompiledName("midnightblue")>] Midnightblue
-  | [<CompiledName("mintcream")>] Mintcream
-  | [<CompiledName("mistyrose")>] Mistyrose
-  | [<CompiledName("moccasin")>] Moccasin
-  | [<CompiledName("navajowhite")>] Navajowhite
-  | [<CompiledName("oldlace")>] Oldlace
-  | [<CompiledName("olivedrab")>] Olivedrab
-  | [<CompiledName("orangered")>] Orangered
-  | [<CompiledName("orchid")>] Orchid
-  | [<CompiledName("palegoldenrod")>] Palegoldenrod
-  | [<CompiledName("palegreen")>] Palegreen
-  | [<CompiledName("paleturquoise")>] Paleturquoise
-  | [<CompiledName("palevioletred")>] Palevioletred
-  | [<CompiledName("papayawhip")>] Papayawhip
-  | [<CompiledName("peachpuff")>] Peachpuff
-  | [<CompiledName("peru")>] Peru
-  | [<CompiledName("pink")>] Pink
-  | [<CompiledName("plum")>] Plum
-  | [<CompiledName("powderblue")>] Powderblue
-  | [<CompiledName("rosybrown")>] Rosybrown
-  | [<CompiledName("royalblue")>] Royalblue
-  | [<CompiledName("saddlebrown")>] Saddlebrown
-  | [<CompiledName("salmon")>] Salmon
-  | [<CompiledName("sandybrown")>] Sandybrown
-  | [<CompiledName("seagreen")>] Seagreen
-  | [<CompiledName("seashell")>] Seashell
-  | [<CompiledName("sienna")>] Sienna
-  | [<CompiledName("skyblue")>] Skyblue
-  | [<CompiledName("slateblue")>] Slateblue
-  | [<CompiledName("slategray")>] Slategray
-  | [<CompiledName("slategrey")>] Slategrey
-  | [<CompiledName("snow")>] Snow
-  | [<CompiledName("springgreen")>] Springgreen
-  | [<CompiledName("steelblue")>] Steelblue
-  | [<CompiledName("tan")>] Tan
-  | [<CompiledName("thistle")>] Thistle
-  | [<CompiledName("tomato")>] Tomato
-  | [<CompiledName("turquoise")>] Turquoise
-  | [<CompiledName("violet")>] Violet
-  | [<CompiledName("wheat")>] Wheat
-  | [<CompiledName("whitesmoke")>] Whitesmoke
-  | [<CompiledName("yellowgreen")>] Yellowgreen
-  | [<CompiledName("rebeccapurple")>] Rebeccapurple    
-type Color = U2<NamedColor, string>
 
-type Categorical =
-  | [<CompiledName("accent")>] Accent
-  | [<CompiledName("category10")>] Category10
-  | [<CompiledName("category20")>] Category20
-  | [<CompiledName("category20b")>] Category20b
-  | [<CompiledName("category20c")>] Category20c
-  | [<CompiledName("dark2")>] Dark2
-  | [<CompiledName("paired")>] Paired
-  | [<CompiledName("pastel1")>] Pastel1
-  | [<CompiledName("pastel2")>] Pastel2
-  | [<CompiledName("set1")>] Set1
-  | [<CompiledName("set2")>] Set2
-  | [<CompiledName("set3")>] Set3
-  | [<CompiledName("tableau10")>] Tableau10
-  | [<CompiledName("tableau20")>] Tableau20
-  | [<CompiledName("observable10")>] Observable10
+open Fable.Core
+open Fable.Core.JsInterop
+open System
 
-type SequentialSingleHue =
-  | [<CompiledName("blues")>] Blues
-  | [<CompiledName("tealblues")>] Tealblues
-  | [<CompiledName("teals")>] Teals
-  | [<CompiledName("greens")>] Greens
-  | [<CompiledName("browns")>] Browns
-  | [<CompiledName("greys")>] Greys
-  | [<CompiledName("purples")>] Purples
-  | [<CompiledName("warmgreys")>] Warmgreys
-  | [<CompiledName("reds")>] Reds
-  | [<CompiledName("oranges")>] Oranges
+type HexColor =
+    string
 
-type SequentialMultiHue =
-  | [<CompiledName("turbo")>] Turbo
-  | [<CompiledName("viridis")>] Viridis
-  | [<CompiledName("inferno")>] Inferno
-  | [<CompiledName("magma")>] Magma
-  | [<CompiledName("plasma")>] Plasma
-  | [<CompiledName("cividis")>] Cividis
-  | [<CompiledName("bluegreen")>] Bluegreen
-  | [<CompiledName("bluegreen-3")>] Bluegreen3
-  | [<CompiledName("bluegreen-4")>] Bluegreen4
-  | [<CompiledName("bluegreen-5")>] Bluegreen5
-  | [<CompiledName("bluegreen-6")>] Bluegreen6
-  | [<CompiledName("bluegreen-7")>] Bluegreen7
-  | [<CompiledName("bluegreen-8")>] Bluegreen8
-  | [<CompiledName("bluegreen-9")>] Bluegreen9
-  | [<CompiledName("bluepurple")>] Bluepurple
-  | [<CompiledName("bluepurple-3")>] Bluepurple3
-  | [<CompiledName("bluepurple-4")>] Bluepurple4
-  | [<CompiledName("bluepurple-5")>] Bluepurple5
-  | [<CompiledName("bluepurple-6")>] Bluepurple6
-  | [<CompiledName("bluepurple-7")>] Bluepurple7
-  | [<CompiledName("bluepurple-8")>] Bluepurple8
-  | [<CompiledName("bluepurple-9")>] Bluepurple9
-  | [<CompiledName("goldgreen")>] Goldgreen
-  | [<CompiledName("goldgreen-3")>] Goldgreen3
-  | [<CompiledName("goldgreen-4")>] Goldgreen4
-  | [<CompiledName("goldgreen-5")>] Goldgreen5
-  | [<CompiledName("goldgreen-6")>] Goldgreen6
-  | [<CompiledName("goldgreen-7")>] Goldgreen7
-  | [<CompiledName("goldgreen-8")>] Goldgreen8
-  | [<CompiledName("goldgreen-9")>] Goldgreen9
-  | [<CompiledName("goldorange")>] Goldorange
-  | [<CompiledName("goldorange-3")>] Goldorange3
-  | [<CompiledName("goldorange-4")>] Goldorange4
-  | [<CompiledName("goldorange-5")>] Goldorange5
-  | [<CompiledName("goldorange-6")>] Goldorange6
-  | [<CompiledName("goldorange-7")>] Goldorange7
-  | [<CompiledName("goldorange-8")>] Goldorange8
-  | [<CompiledName("goldorange-9")>] Goldorange9
-  | [<CompiledName("goldred")>] Goldred
-  | [<CompiledName("goldred-3")>] Goldred3
-  | [<CompiledName("goldred-4")>] Goldred4
-  | [<CompiledName("goldred-5")>] Goldred5
-  | [<CompiledName("goldred-6")>] Goldred6
-  | [<CompiledName("goldred-7")>] Goldred7
-  | [<CompiledName("goldred-8")>] Goldred8
-  | [<CompiledName("goldred-9")>] Goldred9
-  | [<CompiledName("greenblue")>] Greenblue
-  | [<CompiledName("greenblue-3")>] Greenblue3
-  | [<CompiledName("greenblue-4")>] Greenblue4
-  | [<CompiledName("greenblue-5")>] Greenblue5
-  | [<CompiledName("greenblue-6")>] Greenblue6
-  | [<CompiledName("greenblue-7")>] Greenblue7
-  | [<CompiledName("greenblue-8")>] Greenblue8
-  | [<CompiledName("greenblue-9")>] Greenblue9
-  | [<CompiledName("orangered")>] Orangered
-  | [<CompiledName("orangered-3")>] Orangered3
-  | [<CompiledName("orangered-4")>] Orangered4
-  | [<CompiledName("orangered-5")>] Orangered5
-  | [<CompiledName("orangered-6")>] Orangered6
-  | [<CompiledName("orangered-7")>] Orangered7
-  | [<CompiledName("orangered-8")>] Orangered8
-  | [<CompiledName("orangered-9")>] Orangered9
-  | [<CompiledName("purplebluegreen")>] Purplebluegreen
-  | [<CompiledName("purplebluegreen-3")>] Purplebluegreen3
-  | [<CompiledName("purplebluegreen-4")>] Purplebluegreen4
-  | [<CompiledName("purplebluegreen-5")>] Purplebluegreen5
-  | [<CompiledName("purplebluegreen-6")>] Purplebluegreen6
-  | [<CompiledName("purplebluegreen-7")>] Purplebluegreen7
-  | [<CompiledName("purplebluegreen-8")>] Purplebluegreen8
-  | [<CompiledName("purplebluegreen-9")>] Purplebluegreen9
-  | [<CompiledName("purpleblue")>] Purpleblue
-  | [<CompiledName("purpleblue-3")>] Purpleblue3
-  | [<CompiledName("purpleblue-4")>] Purpleblue4
-  | [<CompiledName("purpleblue-5")>] Purpleblue5
-  | [<CompiledName("purpleblue-6")>] Purpleblue6
-  | [<CompiledName("purpleblue-7")>] Purpleblue7
-  | [<CompiledName("purpleblue-8")>] Purpleblue8
-  | [<CompiledName("purpleblue-9")>] Purpleblue9
-  | [<CompiledName("purplered")>] Purplered
-  | [<CompiledName("purplered-3")>] Purplered3
-  | [<CompiledName("purplered-4")>] Purplered4
-  | [<CompiledName("purplered-5")>] Purplered5
-  | [<CompiledName("purplered-6")>] Purplered6
-  | [<CompiledName("purplered-7")>] Purplered7
-  | [<CompiledName("purplered-8")>] Purplered8
-  | [<CompiledName("purplered-9")>] Purplered9
-  | [<CompiledName("redpurple")>] Redpurple
-  | [<CompiledName("redpurple-3")>] Redpurple3
-  | [<CompiledName("redpurple-4")>] Redpurple4
-  | [<CompiledName("redpurple-5")>] Redpurple5
-  | [<CompiledName("redpurple-6")>] Redpurple6
-  | [<CompiledName("redpurple-7")>] Redpurple7
-  | [<CompiledName("redpurple-8")>] Redpurple8
-  | [<CompiledName("redpurple-9")>] Redpurple9
-  | [<CompiledName("yellowgreenblue")>] Yellowgreenblue
-  | [<CompiledName("yellowgreenblue-3")>] Yellowgreenblue3
-  | [<CompiledName("yellowgreenblue-4")>] Yellowgreenblue4
-  | [<CompiledName("yellowgreenblue-5")>] Yellowgreenblue5
-  | [<CompiledName("yellowgreenblue-6")>] Yellowgreenblue6
-  | [<CompiledName("yellowgreenblue-7")>] Yellowgreenblue7
-  | [<CompiledName("yellowgreenblue-8")>] Yellowgreenblue8
-  | [<CompiledName("yellowgreenblue-9")>] Yellowgreenblue9
-  | [<CompiledName("yellowgreen")>] Yellowgreen
-  | [<CompiledName("yellowgreen-3")>] Yellowgreen3
-  | [<CompiledName("yellowgreen-4")>] Yellowgreen4
-  | [<CompiledName("yellowgreen-5")>] Yellowgreen5
-  | [<CompiledName("yellowgreen-6")>] Yellowgreen6
-  | [<CompiledName("yellowgreen-7")>] Yellowgreen7
-  | [<CompiledName("yellowgreen-8")>] Yellowgreen8
-  | [<CompiledName("yellowgreen-9")>] Yellowgreen9
-  | [<CompiledName("yelloworangebrown")>] Yelloworangebrown
-  | [<CompiledName("yelloworangebrown-3")>] Yelloworangebrown3
-  | [<CompiledName("yelloworangebrown-4")>] Yelloworangebrown4
-  | [<CompiledName("yelloworangebrown-5")>] Yelloworangebrown5
-  | [<CompiledName("yelloworangebrown-6")>] Yelloworangebrown6
-  | [<CompiledName("yelloworangebrown-7")>] Yelloworangebrown7
-  | [<CompiledName("yelloworangebrown-8")>] Yelloworangebrown8
-  | [<CompiledName("yelloworangebrown-9")>] Yelloworangebrown9
-  | [<CompiledName("yelloworangered")>] Yelloworangered
-  | [<CompiledName("yelloworangered-3")>] Yelloworangered3
-  | [<CompiledName("yelloworangered-4")>] Yelloworangered4
-  | [<CompiledName("yelloworangered-5")>] Yelloworangered5
-  | [<CompiledName("yelloworangered-6")>] Yelloworangered6
-  | [<CompiledName("yelloworangered-7")>] Yelloworangered7
-  | [<CompiledName("yelloworangered-8")>] Yelloworangered8
-  | [<CompiledName("yelloworangered-9")>] Yelloworangered9
-  | [<CompiledName("darkblue")>] Darkblue
-  | [<CompiledName("darkblue-3")>] Darkblue3
-  | [<CompiledName("darkblue-4")>] Darkblue4
-  | [<CompiledName("darkblue-5")>] Darkblue5
-  | [<CompiledName("darkblue-6")>] Darkblue6
-  | [<CompiledName("darkblue-7")>] Darkblue7
-  | [<CompiledName("darkblue-8")>] Darkblue8
-  | [<CompiledName("darkblue-9")>] Darkblue9
-  | [<CompiledName("darkgold")>] Darkgold
-  | [<CompiledName("darkgold-3")>] Darkgold3
-  | [<CompiledName("darkgold-4")>] Darkgold4
-  | [<CompiledName("darkgold-5")>] Darkgold5
-  | [<CompiledName("darkgold-6")>] Darkgold6
-  | [<CompiledName("darkgold-7")>] Darkgold7
-  | [<CompiledName("darkgold-8")>] Darkgold8
-  | [<CompiledName("darkgold-9")>] Darkgold9
-  | [<CompiledName("darkgreen")>] Darkgreen
-  | [<CompiledName("darkgreen-3")>] Darkgreen3
-  | [<CompiledName("darkgreen-4")>] Darkgreen4
-  | [<CompiledName("darkgreen-5")>] Darkgreen5
-  | [<CompiledName("darkgreen-6")>] Darkgreen6
-  | [<CompiledName("darkgreen-7")>] Darkgreen7
-  | [<CompiledName("darkgreen-8")>] Darkgreen8
-  | [<CompiledName("darkgreen-9")>] Darkgreen9
-  | [<CompiledName("darkmulti")>] Darkmulti
-  | [<CompiledName("darkmulti-3")>] Darkmulti3
-  | [<CompiledName("darkmulti-4")>] Darkmulti4
-  | [<CompiledName("darkmulti-5")>] Darkmulti5
-  | [<CompiledName("darkmulti-6")>] Darkmulti6
-  | [<CompiledName("darkmulti-7")>] Darkmulti7
-  | [<CompiledName("darkmulti-8")>] Darkmulti8
-  | [<CompiledName("darkmulti-9")>] Darkmulti9
-  | [<CompiledName("darkred")>] Darkred
-  | [<CompiledName("darkred-3")>] Darkred3
-  | [<CompiledName("darkred-4")>] Darkred4
-  | [<CompiledName("darkred-5")>] Darkred5
-  | [<CompiledName("darkred-6")>] Darkred6
-  | [<CompiledName("darkred-7")>] Darkred7
-  | [<CompiledName("darkred-8")>] Darkred8
-  | [<CompiledName("darkred-9")>] Darkred9
-  | [<CompiledName("lightgreyred")>] Lightgreyred
-  | [<CompiledName("lightgreyred-3")>] Lightgreyred3
-  | [<CompiledName("lightgreyred-4")>] Lightgreyred4
-  | [<CompiledName("lightgreyred-5")>] Lightgreyred5
-  | [<CompiledName("lightgreyred-6")>] Lightgreyred6
-  | [<CompiledName("lightgreyred-7")>] Lightgreyred7
-  | [<CompiledName("lightgreyred-8")>] Lightgreyred8
-  | [<CompiledName("lightgreyred-9")>] Lightgreyred9
-  | [<CompiledName("lightgreyteal")>] Lightgreyteal
-  | [<CompiledName("lightgreyteal-3")>] Lightgreyteal3
-  | [<CompiledName("lightgreyteal-4")>] Lightgreyteal4
-  | [<CompiledName("lightgreyteal-5")>] Lightgreyteal5
-  | [<CompiledName("lightgreyteal-6")>] Lightgreyteal6
-  | [<CompiledName("lightgreyteal-7")>] Lightgreyteal7
-  | [<CompiledName("lightgreyteal-8")>] Lightgreyteal8
-  | [<CompiledName("lightgreyteal-9")>] Lightgreyteal9
-  | [<CompiledName("lightmulti")>] Lightmulti
-  | [<CompiledName("lightmulti-3")>] Lightmulti3
-  | [<CompiledName("lightmulti-4")>] Lightmulti4
-  | [<CompiledName("lightmulti-5")>] Lightmulti5
-  | [<CompiledName("lightmulti-6")>] Lightmulti6
-  | [<CompiledName("lightmulti-7")>] Lightmulti7
-  | [<CompiledName("lightmulti-8")>] Lightmulti8
-  | [<CompiledName("lightmulti-9")>] Lightmulti9
-  | [<CompiledName("lightorange")>] Lightorange
-  | [<CompiledName("lightorange-3")>] Lightorange3
-  | [<CompiledName("lightorange-4")>] Lightorange4
-  | [<CompiledName("lightorange-5")>] Lightorange5
-  | [<CompiledName("lightorange-6")>] Lightorange6
-  | [<CompiledName("lightorange-7")>] Lightorange7
-  | [<CompiledName("lightorange-8")>] Lightorange8
-  | [<CompiledName("lightorange-9")>] Lightorange9
-  | [<CompiledName("lighttealblue")>] Lighttealblue
-  | [<CompiledName("lighttealblue-3")>] Lighttealblue3
-  | [<CompiledName("lighttealblue-4")>] Lighttealblue4
-  | [<CompiledName("lighttealblue-5")>] Lighttealblue5
-  | [<CompiledName("lighttealblue-6")>] Lighttealblue6
-  | [<CompiledName("lighttealblue-7")>] Lighttealblue7
-  | [<CompiledName("lighttealblue-8")>] Lighttealblue8
-  | [<CompiledName("lighttealblue-9")>] Lighttealblue9
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type ColorName =
+    | black
+    | silver
+    | gray
+    | white
+    | maroon
+    | red
+    | purple
+    | fuchsia
+    | green
+    | lime
+    | olive
+    | yellow
+    | navy
+    | blue
+    | teal
+    | aqua
+    | orange
+    | aliceblue
+    | antiquewhite
+    | aquamarine
+    | azure
+    | beige
+    | bisque
+    | blanchedalmond
+    | blueviolet
+    | brown
+    | burlywood
+    | cadetblue
+    | chartreuse
+    | chocolate
+    | coral
+    | cornflowerblue
+    | cornsilk
+    | crimson
+    | cyan
+    | darkblue
+    | darkcyan
+    | darkgoldenrod
+    | darkgray
+    | darkgreen
+    | darkgrey
+    | darkkhaki
+    | darkmagenta
+    | darkolivegreen
+    | darkorange
+    | darkorchid
+    | darkred
+    | darksalmon
+    | darkseagreen
+    | darkslateblue
+    | darkslategray
+    | darkslategrey
+    | darkturquoise
+    | darkviolet
+    | deeppink
+    | deepskyblue
+    | dimgray
+    | dimgrey
+    | dodgerblue
+    | firebrick
+    | floralwhite
+    | forestgreen
+    | gainsboro
+    | ghostwhite
+    | gold
+    | goldenrod
+    | greenyellow
+    | grey
+    | honeydew
+    | hotpink
+    | indianred
+    | indigo
+    | ivory
+    | khaki
+    | lavender
+    | lavenderblush
+    | lawngreen
+    | lemonchiffon
+    | lightblue
+    | lightcoral
+    | lightcyan
+    | lightgoldenrodyellow
+    | lightgray
+    | lightgreen
+    | lightgrey
+    | lightpink
+    | lightsalmon
+    | lightseagreen
+    | lightskyblue
+    | lightslategray
+    | lightslategrey
+    | lightsteelblue
+    | lightyellow
+    | limegreen
+    | linen
+    | magenta
+    | mediumaquamarine
+    | mediumblue
+    | mediumorchid
+    | mediumpurple
+    | mediumseagreen
+    | mediumslateblue
+    | mediumspringgreen
+    | mediumturquoise
+    | mediumvioletred
+    | midnightblue
+    | mintcream
+    | mistyrose
+    | moccasin
+    | navajowhite
+    | oldlace
+    | olivedrab
+    | orangered
+    | orchid
+    | palegoldenrod
+    | palegreen
+    | paleturquoise
+    | palevioletred
+    | papayawhip
+    | peachpuff
+    | peru
+    | pink
+    | plum
+    | powderblue
+    | rosybrown
+    | royalblue
+    | saddlebrown
+    | salmon
+    | sandybrown
+    | seagreen
+    | seashell
+    | sienna
+    | skyblue
+    | slateblue
+    | slategray
+    | slategrey
+    | snow
+    | springgreen
+    | steelblue
+    | tan
+    | thistle
+    | tomato
+    | turquoise
+    | violet
+    | wheat
+    | whitesmoke
+    | yellowgreen
+    | rebeccapurple
 
-type Diverging =
-  | [<CompiledName("blueorange")>] Blueorange
-  | [<CompiledName("blueorange-3")>] Blueorange3
-  | [<CompiledName("blueorange-4")>] Blueorange4
-  | [<CompiledName("blueorange-5")>] Blueorange5
-  | [<CompiledName("blueorange-6")>] Blueorange6
-  | [<CompiledName("blueorange-7")>] Blueorange7
-  | [<CompiledName("blueorange-8")>] Blueorange8
-  | [<CompiledName("blueorange-9")>] Blueorange9
-  | [<CompiledName("blueorange-10")>] Blueorange10
-  | [<CompiledName("blueorange-11")>] Blueorange11
-  | [<CompiledName("brownbluegreen")>] Brownbluegreen
-  | [<CompiledName("brownbluegreen-3")>] Brownbluegreen3
-  | [<CompiledName("brownbluegreen-4")>] Brownbluegreen4
-  | [<CompiledName("brownbluegreen-5")>] Brownbluegreen5
-  | [<CompiledName("brownbluegreen-6")>] Brownbluegreen6
-  | [<CompiledName("brownbluegreen-7")>] Brownbluegreen7
-  | [<CompiledName("brownbluegreen-8")>] Brownbluegreen8
-  | [<CompiledName("brownbluegreen-9")>] Brownbluegreen9
-  | [<CompiledName("brownbluegreen-10")>] Brownbluegreen10
-  | [<CompiledName("brownbluegreen-11")>] Brownbluegreen11
-  | [<CompiledName("purplegreen")>] Purplegreen
-  | [<CompiledName("purplegreen-3")>] Purplegreen3
-  | [<CompiledName("purplegreen-4")>] Purplegreen4
-  | [<CompiledName("purplegreen-5")>] Purplegreen5
-  | [<CompiledName("purplegreen-6")>] Purplegreen6
-  | [<CompiledName("purplegreen-7")>] Purplegreen7
-  | [<CompiledName("purplegreen-8")>] Purplegreen8
-  | [<CompiledName("purplegreen-9")>] Purplegreen9
-  | [<CompiledName("purplegreen-10")>] Purplegreen10
-  | [<CompiledName("purplegreen-11")>] Purplegreen11
-  | [<CompiledName("pinkyellowgreen")>] Pinkyellowgreen
-  | [<CompiledName("pinkyellowgreen-3")>] Pinkyellowgreen3
-  | [<CompiledName("pinkyellowgreen-4")>] Pinkyellowgreen4
-  | [<CompiledName("pinkyellowgreen-5")>] Pinkyellowgreen5
-  | [<CompiledName("pinkyellowgreen-6")>] Pinkyellowgreen6
-  | [<CompiledName("pinkyellowgreen-7")>] Pinkyellowgreen7
-  | [<CompiledName("pinkyellowgreen-8")>] Pinkyellowgreen8
-  | [<CompiledName("pinkyellowgreen-9")>] Pinkyellowgreen9
-  | [<CompiledName("pinkyellowgreen-10")>] Pinkyellowgreen10
-  | [<CompiledName("pinkyellowgreen-11")>] Pinkyellowgreen11
-  | [<CompiledName("purpleorange")>] Purpleorange
-  | [<CompiledName("purpleorange-3")>] Purpleorange3
-  | [<CompiledName("purpleorange-4")>] Purpleorange4
-  | [<CompiledName("purpleorange-5")>] Purpleorange5
-  | [<CompiledName("purpleorange-6")>] Purpleorange6
-  | [<CompiledName("purpleorange-7")>] Purpleorange7
-  | [<CompiledName("purpleorange-8")>] Purpleorange8
-  | [<CompiledName("purpleorange-9")>] Purpleorange9
-  | [<CompiledName("purpleorange-10")>] Purpleorange10
-  | [<CompiledName("purpleorange-11")>] Purpleorange11
-  | [<CompiledName("redblue")>] Redblue
-  | [<CompiledName("redblue-3")>] Redblue3
-  | [<CompiledName("redblue-4")>] Redblue4
-  | [<CompiledName("redblue-5")>] Redblue5
-  | [<CompiledName("redblue-6")>] Redblue6
-  | [<CompiledName("redblue-7")>] Redblue7
-  | [<CompiledName("redblue-8")>] Redblue8
-  | [<CompiledName("redblue-9")>] Redblue9
-  | [<CompiledName("redblue-10")>] Redblue10
-  | [<CompiledName("redblue-11")>] Redblue11
-  | [<CompiledName("redgrey")>] Redgrey
-  | [<CompiledName("redgrey-3")>] Redgrey3
-  | [<CompiledName("redgrey-4")>] Redgrey4
-  | [<CompiledName("redgrey-5")>] Redgrey5
-  | [<CompiledName("redgrey-6")>] Redgrey6
-  | [<CompiledName("redgrey-7")>] Redgrey7
-  | [<CompiledName("redgrey-8")>] Redgrey8
-  | [<CompiledName("redgrey-9")>] Redgrey9
-  | [<CompiledName("redgrey-10")>] Redgrey10
-  | [<CompiledName("redgrey-11")>] Redgrey11
-  | [<CompiledName("redyellowblue")>] Redyellowblue
-  | [<CompiledName("redyellowblue-3")>] Redyellowblue3
-  | [<CompiledName("redyellowblue-4")>] Redyellowblue4
-  | [<CompiledName("redyellowblue-5")>] Redyellowblue5
-  | [<CompiledName("redyellowblue-6")>] Redyellowblue6
-  | [<CompiledName("redyellowblue-7")>] Redyellowblue7
-  | [<CompiledName("redyellowblue-8")>] Redyellowblue8
-  | [<CompiledName("redyellowblue-9")>] Redyellowblue9
-  | [<CompiledName("redyellowblue-10")>] Redyellowblue10
-  | [<CompiledName("redyellowblue-11")>] Redyellowblue11
-  | [<CompiledName("redyellowgreen")>] Redyellowgreen
-  | [<CompiledName("redyellowgreen-3")>] Redyellowgreen3
-  | [<CompiledName("redyellowgreen-4")>] Redyellowgreen4
-  | [<CompiledName("redyellowgreen-5")>] Redyellowgreen5
-  | [<CompiledName("redyellowgreen-6")>] Redyellowgreen6
-  | [<CompiledName("redyellowgreen-7")>] Redyellowgreen7
-  | [<CompiledName("redyellowgreen-8")>] Redyellowgreen8
-  | [<CompiledName("redyellowgreen-9")>] Redyellowgreen9
-  | [<CompiledName("redyellowgreen-10")>] Redyellowgreen10
-  | [<CompiledName("redyellowgreen-11")>] Redyellowgreen11
-  | [<CompiledName("spectral")>] Spectral
-  | [<CompiledName("spectral-3")>] Spectral3
-  | [<CompiledName("spectral-4")>] Spectral4
-  | [<CompiledName("spectral-5")>] Spectral5
-  | [<CompiledName("spectral-6")>] Spectral6
-  | [<CompiledName("spectral-7")>] Spectral7
-  | [<CompiledName("spectral-8")>] Spectral8
-  | [<CompiledName("spectral-9")>] Spectral9
-  | [<CompiledName("spectral-10")>] Spectral10
-  | [<CompiledName("spectral-11")>] Spectral11
-
-type Cyclical =
-     | [<CompiledName("rainbow")>] Rainbow
-     | [<CompiledName("sinebow")>] Sinebow
-
-[<Erase>]
-type ColorScheme =
-  | Categorical of Categorical
-  | SequentialSingleHue of SequentialSingleHue
-  | SequentialMultiHue of SequentialMultiHue
-  | Diverging of Diverging
-  | Cyclical of Cyclical
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type Color =
+    | black
+    | silver
+    | gray
+    | white
+    | maroon
+    | red
+    | purple
+    | fuchsia
+    | green
+    | lime
+    | olive
+    | yellow
+    | navy
+    | blue
+    | teal
+    | aqua
+    | orange
+    | aliceblue
+    | antiquewhite
+    | aquamarine
+    | azure
+    | beige
+    | bisque
+    | blanchedalmond
+    | blueviolet
+    | brown
+    | burlywood
+    | cadetblue
+    | chartreuse
+    | chocolate
+    | coral
+    | cornflowerblue
+    | cornsilk
+    | crimson
+    | cyan
+    | darkblue
+    | darkcyan
+    | darkgoldenrod
+    | darkgray
+    | darkgreen
+    | darkgrey
+    | darkkhaki
+    | darkmagenta
+    | darkolivegreen
+    | darkorange
+    | darkorchid
+    | darkred
+    | darksalmon
+    | darkseagreen
+    | darkslateblue
+    | darkslategray
+    | darkslategrey
+    | darkturquoise
+    | darkviolet
+    | deeppink
+    | deepskyblue
+    | dimgray
+    | dimgrey
+    | dodgerblue
+    | firebrick
+    | floralwhite
+    | forestgreen
+    | gainsboro
+    | ghostwhite
+    | gold
+    | goldenrod
+    | greenyellow
+    | grey
+    | honeydew
+    | hotpink
+    | indianred
+    | indigo
+    | ivory
+    | khaki
+    | lavender
+    | lavenderblush
+    | lawngreen
+    | lemonchiffon
+    | lightblue
+    | lightcoral
+    | lightcyan
+    | lightgoldenrodyellow
+    | lightgray
+    | lightgreen
+    | lightgrey
+    | lightpink
+    | lightsalmon
+    | lightseagreen
+    | lightskyblue
+    | lightslategray
+    | lightslategrey
+    | lightsteelblue
+    | lightyellow
+    | limegreen
+    | linen
+    | magenta
+    | mediumaquamarine
+    | mediumblue
+    | mediumorchid
+    | mediumpurple
+    | mediumseagreen
+    | mediumslateblue
+    | mediumspringgreen
+    | mediumturquoise
+    | mediumvioletred
+    | midnightblue
+    | mintcream
+    | mistyrose
+    | moccasin
+    | navajowhite
+    | oldlace
+    | olivedrab
+    | orangered
+    | orchid
+    | palegoldenrod
+    | palegreen
+    | paleturquoise
+    | palevioletred
+    | papayawhip
+    | peachpuff
+    | peru
+    | pink
+    | plum
+    | powderblue
+    | rosybrown
+    | royalblue
+    | saddlebrown
+    | salmon
+    | sandybrown
+    | seagreen
+    | seashell
+    | sienna
+    | skyblue
+    | slateblue
+    | slategray
+    | slategrey
+    | snow
+    | springgreen
+    | steelblue
+    | tan
+    | thistle
+    | tomato
+    | turquoise
+    | violet
+    | wheat
+    | whitesmoke
+    | yellowgreen
+    | rebeccapurple
