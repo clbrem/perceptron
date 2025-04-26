@@ -3,15 +3,6 @@ namespace Vega
 open Fable.Core
 
 
-
-type SignalValue =
-    obj
-
-[<AllowNullLiteral>]
-[<Interface>]
-type SignalRef =
-    abstract member signal: string with get, set
-
 [<AllowNullLiteral>]
 [<Interface>]
 type BaseSignal =

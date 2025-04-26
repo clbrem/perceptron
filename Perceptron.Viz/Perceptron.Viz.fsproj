@@ -6,17 +6,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Vega.SignalRef.fs" />
         <Compile Include="Vega.Expr.fs" />
         <Compile Include="Vega.Selector.fs" />
         <Compile Include="Vega.Bind.fs" />
-        <Compile Include="Vega.Signal.fs" />
-        <Compile Include="Vega.Scale.fs" />
         <Compile Include="Vega.MarkType.fs" />
         <Compile Include="Vega.Stream.fs" />
         <Compile Include="Vega.OnEvents.fs" />
+        <Compile Include="Vega.Signal.fs" />
+        <Compile Include="Vega.Scale.fs" />
+        <Compile Include="Vega.Color.fs" />
         <Compile Include="Vega.Encode.fs" />
         <Compile Include="Vega.OnTrigger.fs" />
-        <Compile Include="Vega.Color.fs" />
         <Compile Include="Vega.Values.fs" />
         <Compile Include="Vega.Axis.fs" />
         <Compile Include="Vega.Data.fs" />
