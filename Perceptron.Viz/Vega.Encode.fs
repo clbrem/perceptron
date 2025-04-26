@@ -89,7 +89,8 @@ type StringValueRef = ScaledValueRef<string>
 
 // export type SymbolShapeValueRef = ScaledValueRef<SymbolShape>;
 // export type FontWeightValueRef = ScaledValueRef<FontWeight>;
-// export type FontStyleValueRef = ScaledValueRef<FontStyle>;
+
+
 // export type AlignValueRef = ScaledValueRef<Align>;
 //
 // export type StrokeCapValueRef = ScaledValueRef<StrokeCap>;
@@ -362,7 +363,15 @@ type ColorValueRef =
 //   [k: string]: ProductionRule<ArbitraryValueRef> | undefined;
 // }
 //
-// export type Align = 'left' | 'center' | 'right';
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type Align =
+    | left
+    | center
+    | right
+// export type AlignValueRef = ScaledValueRef<Align>;
+type AlignValueRef =
+    ScaledValueRef<Align>
 // export interface AlignProperty {
 //   align?: ProductionRule<ScaledValueRef<Align>>;
 // }
@@ -509,9 +518,19 @@ type FontWeight =
     | [<CompiledName("800")>] x800
     | [<CompiledName("900")>] x900
     
-//
+type FontWeightValueRef = ScaledValueRef<FontWeight>    
+// |'normal' | 'italic' | 'oblique' | string;
 // // see https://developer.mozilla.org/en-US/docs/Web/CSS/font-style#Values
-// export type FontStyle = 'normal' | 'italic' | 'oblique' | string;
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type FontStyleEnum =
+    | normal
+    | italic
+    | oblique    
+type FontStyle =
+    U2<FontStyleEnum,string>
+// export type FontStyleValueRef = ScaledValueRef<FontStyle>;    
+type FontStyleValueRef = ScaledValueRef<FontStyle>
 //
 // export interface TextEncodeEntry extends EncodeEntry, AlignProperty, ThetaProperty {
 //   text?: ProductionRule<TextValueRef>;

@@ -26,7 +26,6 @@
         <Compile Include="Vega.Locale.fs" />
         <Compile Include="Vega.Projection.fs" />
         <Compile Include="Vega.Scope.fs" />
-        <Compile Include="Vega.Config.fs" />        
         <Compile Include="Vega.Spec.fs" />
         <Compile Include="Vega.fs" />
         <Compile Include="Program.fs" />
