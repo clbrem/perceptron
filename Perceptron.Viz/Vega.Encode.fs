@@ -4,7 +4,20 @@ open Fable.Core
 // import { Color } from './color.js';
 // import { Cursor, StrokeCap, StrokeJoin } from './config.d.js';
 // import { TitleAnchor } from './title.js';
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type Baseline =
+    |top | middle | bottom
 
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type TextBaseline =
+    | alphabetic
+    | top
+    | middle
+    | bottom
+    | lineTop
+    | lineBottom
 //
 // export type Field = string | SignalRef | DatumFieldRef | GroupFieldRef | ParentFieldRef;
 //
@@ -87,7 +100,7 @@ type NumericValueRef =
 // export type StringValueRef = ScaledValueRef<string>;
 type StringValueRef = ScaledValueRef<string>
 
-// export type SymbolShapeValueRef = ScaledValueRef<SymbolShape>;
+
 // export type FontWeightValueRef = ScaledValueRef<FontWeight>;
 
 
@@ -96,7 +109,8 @@ type StringValueRef = ScaledValueRef<string>
 // export type StrokeCapValueRef = ScaledValueRef<StrokeCap>;
 // export type AnchorValueRef = ScaledValueRef<TitleAnchor>;
 // export type OrientValueRef = ScaledValueRef<Orient>;
-// export type TextBaselineValueRef = ScaledValueRef<TextBaseline>;
+type TextBaselineValueRef = ScaledValueRef<TextBaseline>
+
 // export type TextValueRef = ScaledValueRef<Text>;
 // export type BooleanValueRef = ScaledValueRef<boolean>;
 type BooleanValueRef = ScaledValueRef<bool>
@@ -395,7 +409,11 @@ type AlignValueRef =
 //   cornerRadius?: ProductionRule<NumericValueRef>;
 // }
 //
-// export type Orientation = 'horizontal' | 'vertical';
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type Orientation =
+    |horizontal
+    | vertical
 //
 // export interface AreaEncodeEntry extends LineEncodeEntry {
 //   orient?: ProductionRule<ScaledValueRef<Orientation>>;
@@ -473,6 +491,22 @@ type AlignValueRef =
 //   | 'wedge'
 //   | 'stroke'
 //   | string;
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type SymbolShape =
+    | circle
+    | square
+    | cross
+    | diamond
+    | [<CompiledName("triangle-up")>] triangleUp
+    | [<CompiledName("triangle-down")>] triangleDown
+    | [<CompiledName("triangle-right")>] triangleRight
+    | [<CompiledName("triangle-left")>] triangleLeft
+    | arrow
+    | triangle
+    | wedge
+    | stroke    
+type SymbolShapeValueRef = ScaledValueRef<SymbolShape>
 //
 // export interface SymbolEncodeEntry extends EncodeEntry {
 //   size?: ProductionRule<NumericValueRef>;
@@ -482,7 +516,8 @@ type AlignValueRef =
 //
 // export type Text = string | string[];
 //
-// export type TextBaseline = 'alphabetic' | Baseline | 'line-top' | 'line-bottom';
+
+
 //
 // export type TextDirection = 'ltr' | 'rtl';
 //

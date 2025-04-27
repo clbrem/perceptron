@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <Compile Include="Vega.SignalRef.fs" />
+        <Compile Include="Vector.fs" />
         <Compile Include="Vega.Expr.fs" />
         <Compile Include="Vega.Selector.fs" />
         <Compile Include="Vega.Bind.fs" />
@@ -24,6 +25,7 @@
         <Compile Include="Vega.Layout.fs" />
         <Compile Include="Vega.Legend.fs" />
         <Compile Include="Vega.Locale.fs" />
+        <Compile Include="Vega.Config.fs" />
         <Compile Include="Vega.Projection.fs" />
         <Compile Include="Vega.Scope.fs" />
         <Compile Include="Vega.Spec.fs" />
