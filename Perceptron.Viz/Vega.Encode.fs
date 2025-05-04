@@ -310,23 +310,23 @@ type ColorValueRef =
 //       test?: string;
 //     } & T)[];
 //
-// export type Blend =
-//   | null
-//   | 'multiply'
-//   | 'screen'
-//   | 'overlay'
-//   | 'darken'
-//   | 'lighten'
-//   | 'color-dodge'
-//   | 'color-burn'
-//   | 'hard-light'
-//   | 'soft-light'
-//   | 'difference'
-//   | 'exclusion'
-//   | 'hue'
-//   | 'saturation'
-//   | 'color'
-//   | 'luminosity';
+[<RequireQualifiedAccess>]
+type Blend =  
+  | [<CompiledName("multiply")>] multiply
+  | [<CompiledName("screen")>] screen
+  | [<CompiledName("overlay")>] overlay
+  | [<CompiledName("darken")>] darken
+  | [<CompiledName("lighten")>] lighten
+  | [<CompiledName("color-dodge")>] colorDodge
+  | [<CompiledName("color-burn")>] colorBurn
+  | [<CompiledName("hard-light")>] hardLight
+  | [<CompiledName("soft-light")>] softLight
+  | [<CompiledName("difference")>] difference
+  | [<CompiledName("exclusion")>] exclusion
+  | [<CompiledName("hue")>] hue
+  | [<CompiledName("saturation")>] saturation
+  | [<CompiledName("color")>] color
+  | [<CompiledName("luminosity")>] luminosity
 //
 // export interface EncodeEntry {
 //   x?: ProductionRule<NumericValueRef>;
@@ -434,22 +434,23 @@ type Orientation =
 //   smooth?: ProductionRule<BooleanValueRef>;
 // }
 //
-// export type Interpolate =
-//   | 'basis'
-//   | 'basis-open'
-//   | 'basis-closed'
-//   | 'bundle'
-//   | 'cardinal'
-//   | 'cardinal-open'
-//   | 'cardinal-closed'
-//   | 'catmull-rom'
-//   | 'linear'
-//   | 'linear-closed'
-//   | 'monotone'
-//   | 'natural'
-//   | 'step'
-//   | 'step-before'
-//   | 'step-after';
+[<RequireQualifiedAccess>]
+type Interpolate =
+  | [<CompiledName("basis")>] basis
+  | [<CompiledName("basis-open")>] basisOpen
+  | [<CompiledName("basis-closed")>] basisClosed
+  | [<CompiledName("bundle")>] bundle
+  | [<CompiledName("cardinal")>] cardinal
+  | [<CompiledName("cardinal-open")>] cardinalOpen
+  | [<CompiledName("cardinal-closed")>] cardinalClosed
+  | [<CompiledName("catmull-rom")>] catmullRom
+  | [<CompiledName("linear")>] linear
+  | [<CompiledName("linear-closed")>] linearClosed
+  | [<CompiledName("monotone")>] monotone
+  | [<CompiledName("natural")>] natural
+  | [<CompiledName("step")>] step
+  | [<CompiledName("step-before")>] stepBefore
+  | [<CompiledName("step-after")>] stepAfter
 //
 // export interface LineEncodeEntry extends EncodeEntry, DefinedProperty {
 //   interpolate?: ProductionRule<ScaledValueRef<Interpolate>>;
@@ -514,12 +515,16 @@ type SymbolShapeValueRef = ScaledValueRef<SymbolShape>
 //   angle?: ProductionRule<NumericValueRef>;
 // }
 //
-// export type Text = string | string[];
-//
+type Text = U2<string, string[]>
 
 
+
 //
-// export type TextDirection = 'ltr' | 'rtl';
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type TextDirection =
+    | ltr
+    | rtl
 //
 // export type FontWeight =
 //   | 'normal'

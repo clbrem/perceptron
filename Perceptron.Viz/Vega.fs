@@ -6,11 +6,6 @@ open Fable.Core.JS
 open Fetch
 open Vega
 
-
-
-
-
-
 module Vega =
     type Padding =
         U2<int, {| top: int option; right: int option; bottom: int option; left: int option |}>
@@ -204,19 +199,19 @@ module Vega =
             // The array of group sizes (e.g., [3]), cycled as needed
             grouping: int []
             // The currency prefix and suffix (e.g., ["$", ""])
-            currency: Vec2<string>
+            currency: Vector.Vec2<string>
             //An array of 10 strings replacing 0-9 
-            numerals: Vec10<string>
+            numerals: Vector.Vec10<string>
         }
         type TimeLocale = {
             dateTime: string
             date: string
             time: string
-            periods: Vec2<string>
-            days: Vec7<string>
-            shortDays: Vec7<string>
-            months: Vec12<string>
-            shortMonths: Vec12<string>
+            periods: Vector.Vec2<string>
+            days: Vector.Vec7<string>
+            shortDays: Vector.Vec7<string>
+            months: Vector.Vec12<string>
+            shortMonths: Vector.Vec12<string>
         }
         type Orientation =
             | [<CompiledName("horizontal")>] Horizontal
@@ -552,7 +547,7 @@ module Vega =
               //
                //The projection's viewport clip extent to the specified bounds in pixels. The extent bounds are specified as an array `[[x0, y0], [x1, y1]]`, where `x0` is the left-side of the viewport, `y0` is the top, `x1` is the right and `y1` is the bottom. If `null`, no viewport clipping is performed.
                //
-              clipExtent: U2<Vec2<Vec2<U2<int, SignalRef>>>,SignalRef> option
+              clipExtent: U2<Vector.Vec2<Vector.Vec2<U2<int, SignalRef>>>,SignalRef> option
             
               //
                //The projection’s scale factor. The default scale is projection-specific. The scale factor corresponds linearly to the distance between projected points; however, scale factor values are not equivalent across projections.
@@ -562,21 +557,21 @@ module Vega =
               //
                //The projection's translation offset as a two-element array `[tx, ty]`, defaults to `[480, 250]`. The translation offset determines the pixel coordinates of the projection's center. The default translation offset places (0°,0°) at the center of a 960×500 area.
                //
-              translate: U2<Vec2<U2<int, SignalRef>>,SignalRef> option;
+              translate: U2<Vector.Vec2<U2<int, SignalRef>>,SignalRef> option;
             
               //
                //The projection's center, a two-element array of longitude and latitude in degrees.
                //
                //__Default value:__ `[0, 0]`
                //
-              center: U2<Vec2<U2<int,SignalRef>>, SignalRef> option;
+              center: U2<Vector.Vec2<U2<int,SignalRef>>, SignalRef> option;
             
               //
                //The projection's three-axis rotation to the specified angles, which must be a two- or three-element array of numbers [`lambda`, `phi`, `gamma`] specifying the rotation angles in degrees about each spherical axis. (These correspond to yaw, pitch and roll.)
                //
                //__Default value:__ `[0, 0, 0]`
                //
-              rotate: U3<Vec2<U2<int, SignalRef>>,  Vec3<U2<int, SignalRef>>,  SignalRef> option;
+              rotate: U3<Vector.Vec2<U2<int, SignalRef>>,  Vector.Vec3<U2<int, SignalRef>>,  SignalRef> option;
             
               //
                //For conic projections, the [two standard parallels](https://en.wikipedia.org/wiki/Map_projection#Conic) that define the map layout. The default depends on the specific conic projection used.
@@ -603,12 +598,12 @@ module Vega =
               //
                //Used in conjunction with fit, provides the pixel area to which the projection should be automatically fit.
                //
-              extent: U2<Vec2<Vec2<U2<int,SignalRef>>>,  SignalRef> option
+              extent: U2<Vector.Vec2<Vector.Vec2<U2<int,SignalRef>>>,  SignalRef> option
             
               //
                //Used in conjunction with fit, provides the width and height in pixels of the area to which the projection should be automatically fit.
                //
-              size: U2<Vec2<U2<int,SignalRef>>,SignalRef> option
+              size: U2<Vector.Vec2<U2<int,SignalRef>>,SignalRef> option
             
             
               //
