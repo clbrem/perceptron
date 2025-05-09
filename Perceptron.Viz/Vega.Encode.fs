@@ -303,13 +303,8 @@ type ColorValueRef =
         count: int
         color: U3<ColorRGB, ColorHSL, ColorLAB> option
     }
-//
-// export type ProductionRule<T> =
-//   | T
-//   | ({
-//       test?: string;
-//     } & T)[];
-//
+type ProductionRule = obj
+
 [<RequireQualifiedAccess>]
 type Blend =  
   | [<CompiledName("multiply")>] multiply
@@ -328,54 +323,7 @@ type Blend =
   | [<CompiledName("color")>] color
   | [<CompiledName("luminosity")>] luminosity
 //
-// export interface EncodeEntry {
-//   x?: ProductionRule<NumericValueRef>;
-//   x2?: ProductionRule<NumericValueRef>;
-//   xc?: ProductionRule<NumericValueRef>;
-//   width?: ProductionRule<NumericValueRef>;
-//   y?: ProductionRule<NumericValueRef>;
-//   y2?: ProductionRule<NumericValueRef>;
-//   yc?: ProductionRule<NumericValueRef>;
-//   height?: ProductionRule<NumericValueRef>;
-//   opacity?: ProductionRule<NumericValueRef>;
-//   fill?: ProductionRule<ColorValueRef>;
-//   fillOpacity?: ProductionRule<NumericValueRef>;
-//   stroke?: ProductionRule<ColorValueRef>;
-//   strokeWidth?: ProductionRule<NumericValueRef>;
-//   strokeOpacity?: ProductionRule<NumericValueRef>;
-//   strokeDash?: ProductionRule<ScaledValueRef<number[]>>;
-//   strokeDashOffset?: ProductionRule<NumericValueRef>;
-//   strokeCap?: ProductionRule<ScaledValueRef<StrokeCap>>;
-//   strokeJoin?: ProductionRule<ScaledValueRef<StrokeJoin>>;
-//   strokeMiterLimit?: ProductionRule<NumericValueRef>;
-//   blend?: ProductionRule<ScaledValueRef<Blend>>;
-//   cursor?: ProductionRule<ScaledValueRef<Cursor>>;
-//   tooltip?: ProductionRule<StringValueRef>;
-//   zindex?: ProductionRule<NumericValueRef>;
-//   /**
-//    * A boolean flag indicating if [ARIA attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) should be included (SVG output only).
-//    * If `false`, the "aria-hidden" attribute will be set on the output SVG element, removing the mark item from the ARIA accessibility tree.
-//    */
-//   aria?: ProductionRule<BooleanValueRef>;
-//   /**
-//    * Sets the type of user interface element of the mark item for [ARIA accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) (SVG output only).
-//    * If specified, this property determines the "role" attribute.
-//    * Warning: this property is experimental and may be changed in the future.
-//    */
-//   ariaRole?: ProductionRule<StringValueRef>;
-//   /**
-//    * A human-readable, author-localized description for the role of the mark item for [ARIA accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) (SVG output only).
-//    * If specified, this property determines the "aria-roledescription" attribute.
-//    * Warning: this property is experimental and may be changed in the future.
-//    */
-//   ariaRoleDescription?: ProductionRule<StringValueRef>;
-//   /**
-//    * A text description of the mark item for [ARIA accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) (SVG output only).
-//    * If specified, this property determines the ["aria-label" attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute).
-//    */
-//   description?: ProductionRule<StringValueRef>;
-//   [k: string]: ProductionRule<ArbitraryValueRef> | undefined;
-// }
+type EncodeEntry = obj
 //
 [<RequireQualifiedAccess>]
 [<StringEnum(CaseRules.None)>]
@@ -393,20 +341,20 @@ type AlignValueRef =
 // export type Orient = 'left' | 'right' | 'top' | 'bottom';
 //
 // export interface DefinedProperty {
-//   defined?: ProductionRule<BooleanValueRef>;
+//   defined: ProductionRule
 // }
 //
 // export interface ThetaProperty {
-//   theta?: ProductionRule<NumericValueRef>;
+//   theta: ProductionRule
 // }
 //
 // export interface ArcEncodeEntry extends EncodeEntry {
-//   startAngle?: ProductionRule<NumericValueRef>;
-//   endAngle?: ProductionRule<NumericValueRef>;
-//   padAngle?: ProductionRule<NumericValueRef>;
-//   innerRadius?: ProductionRule<NumericValueRef>;
-//   outerRadius?: ProductionRule<NumericValueRef>;
-//   cornerRadius?: ProductionRule<NumericValueRef>;
+//   startAngle: ProductionRule
+//   endAngle: ProductionRule
+//   padAngle: ProductionRule
+//   innerRadius: ProductionRule
+//   outerRadius: ProductionRule
+//   cornerRadius: ProductionRule
 // }
 //
 [<RequireQualifiedAccess>]
@@ -419,19 +367,22 @@ type Orientation =
 //   orient?: ProductionRule<ScaledValueRef<Orientation>>;
 // }
 //
-// export interface GroupEncodeEntry extends RectEncodeEntry {
-//   clip?: ProductionRule<BooleanValueRef>;
-//   strokeForeground?: ProductionRule<BooleanValueRef>;
-//   strokeOffset?: ProductionRule<NumericValueRef>;
+// export interface RectEncodeEntry extends EncodeEntry {
+//   cornerRadius: ProductionRule
+//   cornerRadiusTopLeft: ProductionRule
+//   cornerRadiusTopRight: ProductionRule
+//   cornerRadiusBottomRight: ProductionRule
+//   cornerRadiusBottomLeft: ProductionRule
 // }
+type GroupEncodeEntry  = obj
 //
 // export type Baseline = 'top' | 'middle' | 'bottom';
 //
 // export interface ImageEncodeEntry extends EncodeEntry, AlignProperty {
-//   url?: ProductionRule<StringValueRef>;
-//   aspect?: ProductionRule<BooleanValueRef>;
+//   url: ProductionRule
+//   aspect: ProductionRule
 //   baseline?: ProductionRule<ScaledValueRef<Baseline>>;
-//   smooth?: ProductionRule<BooleanValueRef>;
+//   smooth: ProductionRule
 // }
 //
 [<RequireQualifiedAccess>]
@@ -454,28 +405,22 @@ type Interpolate =
 //
 // export interface LineEncodeEntry extends EncodeEntry, DefinedProperty {
 //   interpolate?: ProductionRule<ScaledValueRef<Interpolate>>;
-//   tension?: ProductionRule<NumericValueRef>;
+//   tension: ProductionRule
 // }
 //
 // export interface PathEncodeEntry extends EncodeEntry {
-//   path?: ProductionRule<StringValueRef>;
-//   angle?: ProductionRule<NumericValueRef>;
-//   scaleX?: ProductionRule<NumericValueRef>;
-//   scaleY?: ProductionRule<NumericValueRef>;
+//   path: ProductionRule
+//   angle: ProductionRule
+//   scaleX: ProductionRule
+//   scaleY: ProductionRule
 // }
 //
-// export interface RectEncodeEntry extends EncodeEntry {
-//   cornerRadius?: ProductionRule<NumericValueRef>;
-//   cornerRadiusTopLeft?: ProductionRule<NumericValueRef>;
-//   cornerRadiusTopRight?: ProductionRule<NumericValueRef>;
-//   cornerRadiusBottomRight?: ProductionRule<NumericValueRef>;
-//   cornerRadiusBottomLeft?: ProductionRule<NumericValueRef>;
-// }
+
 //
 // export type RuleEncodeEntry = EncodeEntry;
 //
 // export interface ShapeEncodeEntry extends EncodeEntry {
-//   shape?: ProductionRule<StringValueRef>;
+//   shape: ProductionRule
 // }
 //
 // export type SymbolShape =
@@ -510,9 +455,9 @@ type SymbolShape =
 type SymbolShapeValueRef = ScaledValueRef<SymbolShape>
 //
 // export interface SymbolEncodeEntry extends EncodeEntry {
-//   size?: ProductionRule<NumericValueRef>;
+//   size: ProductionRule
 //   shape?: ProductionRule<ScaledValueRef<SymbolShape>>;
-//   angle?: ProductionRule<NumericValueRef>;
+//   angle: ProductionRule
 // }
 //
 type Text = U2<string, string[]>
@@ -573,25 +518,25 @@ type FontStyle =
 type FontStyleValueRef = ScaledValueRef<FontStyle>
 //
 // export interface TextEncodeEntry extends EncodeEntry, AlignProperty, ThetaProperty {
-//   text?: ProductionRule<TextValueRef>;
-//   angle?: ProductionRule<NumericValueRef>;
-//   baseline?: ProductionRule<TextBaselineValueRef>;
+//   text: ProductionRule
+//   angle: ProductionRule
+//   baseline: ProductionRule
 //   dir?: ProductionRule<ScaledValueRef<TextDirection>>;
-//   dx?: ProductionRule<NumericValueRef>;
-//   dy?: ProductionRule<NumericValueRef>;
-//   ellipsis?: ProductionRule<StringValueRef>;
-//   font?: ProductionRule<StringValueRef>;
-//   fontSize?: ProductionRule<NumericValueRef>;
-//   fontWeight?: ProductionRule<FontWeightValueRef>;
-//   fontStyle?: ProductionRule<FontStyleValueRef>;
-//   limit?: ProductionRule<NumericValueRef>;
-//   lineBreak?: ProductionRule<StringValueRef>;
+//   dx: ProductionRule
+//   dy: ProductionRule
+//   ellipsis: ProductionRule
+//   font: ProductionRule
+//   fontSize: ProductionRule
+//   fontWeight: ProductionRule
+//   fontStyle: ProductionRule
+//   limit: ProductionRule
+//   lineBreak: ProductionRule
 //
 //   /**
 //    * The height, in pixels, of each line of text in a multi-line text mark or a text mark with `"line-top"` or `"line-bottom"` baseline.
 //    */
-//   lineHeight?: ProductionRule<NumericValueRef>;
-//   radius?: ProductionRule<NumericValueRef>;
+//   lineHeight: ProductionRule
+//   radius: ProductionRule
 // }
 //
 // export interface TrailEncodeEntry extends EncodeEntry, DefinedProperty {}

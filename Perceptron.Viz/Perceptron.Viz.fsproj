@@ -18,7 +18,6 @@
         <Compile Include="Vega.Scale.fs" />
         <Compile Include="Vega.Color.fs" />
         <Compile Include="Vega.Encode.fs" />
-        <Compile Include="Vega.Title.fs" />
         <Compile Include="Vega.OnTrigger.fs" />
         <Compile Include="Vega.Data.fs" />
         <Compile Include="Vega.Values.fs" />
@@ -26,6 +25,7 @@
         <Compile Include="Vega.Config.fs" />
         <Compile Include="Vega.Layout.fs" />
         <Compile Include="Vega.Legend.fs" />
+        <Compile Include="Vega.Title.fs" />
         <Compile Include="Vega.Locale.fs" />
         <Compile Include="Vega.Scheme.fs" />
         <Compile Include="Vega.Projection.fs" />

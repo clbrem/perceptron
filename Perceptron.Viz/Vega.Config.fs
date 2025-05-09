@@ -593,7 +593,7 @@ type AxisConfig =
     /// <summary>
     /// For band scales, indicates if ticks and grid lines should be placed at the <c>"center"</c> of a band (default) or at the band <c>"extent"</c>s to indicate intervals
     /// </summary>
-    abstract member tickBand: BaseAxis.tickBand option with get, set
+    tickBand: BaseAxis.tickBand option 
     /// <summary>
     /// The stroke cap for the tick lines' ending style. One of <c>"butt"</c>, <c>"round"</c> or <c>"square"</c>.
     ///
