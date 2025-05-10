@@ -22,11 +22,13 @@
         <Compile Include="Vega.Data.fs" />
         <Compile Include="Vega.Values.fs" />
         <Compile Include="Vega.Axis.fs" />
-        <Compile Include="Vega.Config.fs" />
-        <Compile Include="Vega.Layout.fs" />
         <Compile Include="Vega.Legend.fs" />
         <Compile Include="Vega.Title.fs" />
+        <Compile Include="Vega.Layout.fs" />
         <Compile Include="Vega.Locale.fs" />
+        <Compile Include="Vega.Mark.fs" />
+        <Compile Include="Vega.Transform.fs" />
+        <Compile Include="Vega.Config.fs" />
         <Compile Include="Vega.Scheme.fs" />
         <Compile Include="Vega.Projection.fs" />
         <Compile Include="Vega.Scope.fs" />

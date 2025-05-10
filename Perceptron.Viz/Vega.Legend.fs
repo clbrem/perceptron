@@ -1,30 +1,24 @@
 namespace Vega
 
 open Fable.Core
-open Fable.Core.JsInterop
-open System
 
-
-
-
-
-
-[<AllowNullLiteral>]
-[<Interface>]
 type GuideEncodeEntry<'T> =
-    abstract member name: string option with get, set
+    {
+    name: string option 
     /// <summary>
     /// A boolean flag indicating if the guide element should respond to input events such as mouse hover.
     /// </summary>
-    abstract member interactive: bool option with get, set
+    interactive: bool option 
     /// <summary>
     /// A mark style property to apply to the guide group mark.
     /// </summary>
-    abstract member style: U2<string, ResizeArray<string>> option with get, set
-    abstract member enter: 'T option with get, set
-    abstract member update: 'T option with get, set
-    abstract member exit: 'T option with get, set
-    abstract member hover: 'T option with get, set
+    style: U2<string, ResizeArray<string>> option 
+    enter: 'T option 
+    update: 'T option 
+    exit: 'T option 
+    hover: 'T option        
+    }
+     
 
 [<RequireQualifiedAccess>]
 [<StringEnum(CaseRules.None)>]
@@ -48,49 +42,7 @@ type LegendOrient =
 
 [<AllowNullLiteral>]
 [<Interface>]
-type Legend =
-    inherit BaseLegend
-    abstract member size: string option with get, set
-    abstract member shape: string option with get, set
-    abstract member fill: string option with get, set
-    abstract member stroke: string option with get, set
-    abstract member strokeDash: string option with get, set
-    abstract member strokeWidth: string option with get, set
-    abstract member opacity: string option with get, set
-    /// <summary>
-    /// The type of legend to include. One of <c>"symbol"</c> for discrete symbol legends, <c>"gradient"</c> for a continuous color gradient, or <c>"discrete"</c> for a discrete color gradient. If gradient or discrete are used, only the fill or stroke scale parameters are considered. If unspecified, the type will be inferred based on the scale parameters used and their backing scale types.
-    /// </summary>
-    abstract member ``type``: LegendType option with get, set
-    /// <summary>
-    /// The direction of the legend, one of <c>"vertical"</c> (default) or <c>"horizontal"</c>.
-    ///
-    /// __Default value:__ <c>"vertical"</c>
-    /// </summary>
-    abstract member direction: Orientation option with get, set
-    /// <summary>
-    /// The format specifier pattern for legend labels. For numerical values, must be a legal [d3-format](https://github.com/d3/d3-format#locale_format) specifier. For date-time values, must be a legal [d3-time-format](https://github.com/d3/d3-time-format#locale_format) specifier or multi-format object.
-    /// </summary>
-    abstract member format: U3<string, TimeFormatSpecifier, SignalRef> option with get, set
-    /// <summary>
-    /// The format type for legend labels (number, time, or utc).
-    /// </summary>
-    abstract member formatType: U2<FormatType, SignalRef> option with get, set
-    /// <summary>
-    /// The title for the legend.
-    /// </summary>
-    abstract member title: U2<Text, SignalRef> option with get, set
-    /// <summary>
-    /// The minimum desired step between tick values for quantitative legends, in terms of scale domain values. For example, a value of <c>1</c> indicates that ticks should not be less than 1 unit apart. If <c>tickMinStep</c> is specified, the <c>tickCount</c> value will be adjusted, if necessary, to enforce the minimum step value.
-    /// </summary>
-    abstract member tickMinStep: U2<float, SignalRef> option with get, set
-    /// <summary>
-    /// Explicitly set the visible legend values.
-    /// </summary>
-    abstract member values: U2<ResizeArray<obj>, SignalRef> option with get, set
-    /// <summary>
-    /// Mark definitions for custom legend encoding.
-    /// </summary>
-    abstract member encode: LegendEncode option with get, set
+
 
 [<AllowNullLiteral>]
 [<Interface>]
@@ -102,6 +54,39 @@ type LegendEncode =
     abstract member symbols: GuideEncodeEntry<SymbolEncodeEntry> option with get, set
     abstract member gradient: GuideEncodeEntry<RectEncodeEntry> option with get, set
 
+
+
+module Legend =
+
+    module BaseLegend =
+
+        [<RequireQualifiedAccess>]
+        [<StringEnum(CaseRules.None)>]
+        type orient =
+            | none
+            | left
+            | right
+            | top
+            | bottom
+            | ``top-left``
+            | ``top-right``
+            | ``bottom-left``
+            | ``bottom-right``
+
+module BaseLegend =
+
+    [<RequireQualifiedAccess>]
+    [<StringEnum(CaseRules.None)>]
+    type orient =
+        | none
+        | left
+        | right
+        | top
+        | bottom
+        | ``top-left``
+        | ``top-right``
+        | ``bottom-left``
+        | ``bottom-right``
 [<AllowNullLiteral>]
 [<Interface>]
 type BaseLegend =
@@ -389,35 +374,47 @@ type BaseLegend =
     /// The integer z-index indicating the layering of the legend group relative to other axis, mark, and legend groups.
     /// </summary>
     abstract member zindex: float option with get, set
-
-module Legend =
-
-    module BaseLegend =
-
-        [<RequireQualifiedAccess>]
-        [<StringEnum(CaseRules.None)>]
-        type orient =
-            | none
-            | left
-            | right
-            | top
-            | bottom
-            | ``top-left``
-            | ``top-right``
-            | ``bottom-left``
-            | ``bottom-right``
-
-module BaseLegend =
-
-    [<RequireQualifiedAccess>]
-    [<StringEnum(CaseRules.None)>]
-    type orient =
-        | none
-        | left
-        | right
-        | top
-        | bottom
-        | ``top-left``
-        | ``top-right``
-        | ``bottom-left``
-        | ``bottom-right``
+    
+type Legend =
+    inherit BaseLegend
+    abstract member size: string option with get, set
+    abstract member shape: string option with get, set
+    abstract member fill: string option with get, set
+    abstract member stroke: string option with get, set
+    abstract member strokeDash: string option with get, set
+    abstract member strokeWidth: string option with get, set
+    abstract member opacity: string option with get, set
+    /// <summary>
+    /// The type of legend to include. One of <c>"symbol"</c> for discrete symbol legends, <c>"gradient"</c> for a continuous color gradient, or <c>"discrete"</c> for a discrete color gradient. If gradient or discrete are used, only the fill or stroke scale parameters are considered. If unspecified, the type will be inferred based on the scale parameters used and their backing scale types.
+    /// </summary>
+    abstract member ``type``: LegendType option with get, set
+    /// <summary>
+    /// The direction of the legend, one of <c>"vertical"</c> (default) or <c>"horizontal"</c>.
+    ///
+    /// __Default value:__ <c>"vertical"</c>
+    /// </summary>
+    abstract member direction: Orientation option with get, set
+    /// <summary>
+    /// The format specifier pattern for legend labels. For numerical values, must be a legal [d3-format](https://github.com/d3/d3-format#locale_format) specifier. For date-time values, must be a legal [d3-time-format](https://github.com/d3/d3-time-format#locale_format) specifier or multi-format object.
+    /// </summary>
+    abstract member format: U3<string, TimeFormatSpecifier, SignalRef> option with get, set
+    /// <summary>
+    /// The format type for legend labels (number, time, or utc).
+    /// </summary>
+    abstract member formatType: U2<FormatType, SignalRef> option with get, set
+    /// <summary>
+    /// The title for the legend.
+    /// </summary>
+    abstract member title: U2<Text, SignalRef> option with get, set
+    /// <summary>
+    /// The minimum desired step between tick values for quantitative legends, in terms of scale domain values. For example, a value of <c>1</c> indicates that ticks should not be less than 1 unit apart. If <c>tickMinStep</c> is specified, the <c>tickCount</c> value will be adjusted, if necessary, to enforce the minimum step value.
+    /// </summary>
+    abstract member tickMinStep: U2<float, SignalRef> option with get, set
+    /// <summary>
+    /// Explicitly set the visible legend values.
+    /// </summary>
+    abstract member values: U2<ResizeArray<obj>, SignalRef> option with get, set
+    /// <summary>
+    /// Mark definitions for custom legend encoding.
+    /// </summary>
+    abstract member encode: LegendEncode option with get, set    

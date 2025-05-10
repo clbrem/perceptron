@@ -84,7 +84,7 @@ module LayoutParams =
 
     [<RequireQualifiedAccess>]
     [<StringEnum(CaseRules.None)>]
-    type titleAnchor =
+    type TitleAnchor =
         | start
         | ``end``
 

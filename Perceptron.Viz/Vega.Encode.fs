@@ -517,42 +517,19 @@ type FontStyle =
 // export type FontStyleValueRef = ScaledValueRef<FontStyle>;    
 type FontStyleValueRef = ScaledValueRef<FontStyle>
 //
-// export interface TextEncodeEntry extends EncodeEntry, AlignProperty, ThetaProperty {
-//   text: ProductionRule
-//   angle: ProductionRule
-//   baseline: ProductionRule
-//   dir?: ProductionRule<ScaledValueRef<TextDirection>>;
-//   dx: ProductionRule
-//   dy: ProductionRule
-//   ellipsis: ProductionRule
-//   font: ProductionRule
-//   fontSize: ProductionRule
-//   fontWeight: ProductionRule
-//   fontStyle: ProductionRule
-//   limit: ProductionRule
-//   lineBreak: ProductionRule
-//
-//   /**
-//    * The height, in pixels, of each line of text in a multi-line text mark or a text mark with `"line-top"` or `"line-bottom"` baseline.
-//    */
-//   lineHeight: ProductionRule
-//   radius: ProductionRule
-// }
+type TextEncodeEntry  = obj
 //
 // export interface TrailEncodeEntry extends EncodeEntry, DefinedProperty {}
 //
 // export interface Encodable<T> {
 //   encode?: Encode<T>;
 // }
-//
-// export type Encode<T> = Partial<Record<EncodeEntryName, T>>;
-//
-// export type EncodeEntryName =
-//   | 'enter'
-//   | 'update'
-//   | 'exit'
-//   | 'hover'
-//   | 'leave'
-//   | 'select'
-//   | 'release';
-
+type Encode<'T>  = {
+    enter: 'T option
+    update: 'T option
+    exit: 'T option
+    hover: 'T option
+    leave: 'T option
+    select: 'T option
+    release: 'T option
+}

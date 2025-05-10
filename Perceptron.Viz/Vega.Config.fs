@@ -700,17 +700,15 @@ type AxisConfig =
     ///
     /// __Default value:__ <c>false</c>.
     /// </summary>
-    abstract member labelBound: U3<float, bool, SignalRef> option with get, set
-    /// <summary>
-    /// Indicates if the first and last axis labels should be aligned flush with the scale range. Flush alignment for a horizontal axis will left-align the first label and right-align the last label. For vertical axes, bottom and top text baselines are applied instead. If this property is a number, it also indicates the number of pixels by which to offset the first and last labels; for example, a value of 2 will flush-align the first and last labels and also push them 2 pixels outward from the center of the axis. The additional adjustment can sometimes help the labels better visually group with corresponding axis ticks.
-    /// </summary>
-    abstract member labelFlush: U3<float, bool, SignalRef> option with get, set
+    labelBound: U3<float, bool, SignalRef> option 
+
+    labelFlush: U3<float, bool, SignalRef> option 
     /// <summary>
     /// Indicates the number of pixels by which to offset flush-adjusted labels. For example, a value of <c>2</c> will push flush-adjusted labels 2 pixels outward from the center of the axis. Offsets can help the labels better visually group with corresponding axis ticks.
     ///
     /// __Default value:__ <c>0</c>.
     /// </summary>
-    abstract member labelFlushOffset: U2<float, SignalRef> option with get, set
+    labelFlushOffset: U2<float, SignalRef> option 
     /// <summary>
     /// Line height in pixels for multi-line label text or label text with <c>"line-top"</c> or <c>"line-bottom"</c> baseline.
     /// </summary>
@@ -718,11 +716,11 @@ type AxisConfig =
     /// <summary>
     /// The strategy to use for resolving overlap of axis labels. If <c>false</c> (the default), no overlap reduction is attempted. If set to <c>true</c> or <c>"parity"</c>, a strategy of removing every other label is used (this works well for standard linear axes). If set to <c>"greedy"</c>, a linear scan of the labels is performed, removing any labels that overlaps with the last visible label (this often works better for log-scaled axes).
     /// </summary>
-    abstract member labelOverlap: BaseAxis.labelOverlap option with get, set
+    labelOverlap: BaseAxis.labelOverlap option 
     /// <summary>
     /// The minimum separation that must be between label bounding boxes for them to be considered non-overlapping (default <c>0</c>). This property is ignored if *labelOverlap* resolution is not enabled.
     /// </summary>
-    abstract member labelSeparation: U2<float, SignalRef> option with get, set
+    labelSeparation: U2<float, SignalRef> option 
     /// <summary>
     /// The rotation angle of the axis labels.
     ///
@@ -777,156 +775,139 @@ type AxisConfig =
     zindex: float option
 }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type LegendConfig =
-    inherit ExcludeMappedValueRef<BaseLegend>
-    /// <summary>
+
+type LegendConfig = {
+         /// <summary>
     /// The default direction (<c>"horizontal"</c> or <c>"vertical"</c>) for gradient legends.
     ///
     /// __Default value:__ <c>"vertical"</c>.
     /// </summary>
-    abstract member gradientDirection: Orientation option with get, set
+     gradientDirection: Orientation option 
     /// <summary>
     /// The maximum allowed length in pixels of color ramp gradient labels.
     /// </summary>
-    abstract member gradientLabelLimit: U2<float, SignalRef> option with get, set
+     gradientLabelLimit: U2<float, SignalRef> option 
     /// <summary>
     /// Vertical offset in pixels for color ramp gradient labels.
     ///
     /// __Default value:__ <c>2</c>.
     /// </summary>
-    abstract member gradientLabelOffset: U2<float, SignalRef> option with get, set
+     gradientLabelOffset: U2<float, SignalRef> option 
     /// <summary>
     /// Default fill color for legend symbols. Only applied if there is no <c>"fill"</c> scale color encoding for the legend.
     ///
     /// __Default value:__ <c>"transparent"</c>.
     /// </summary>
-    abstract member symbolBaseFillColor: U2<Color, SignalRef> option option with get, set
+     symbolBaseFillColor: U2<Color, SignalRef> option option 
     /// <summary>
     /// Default stroke color for legend symbols. Only applied if there is no <c>"fill"</c> scale color encoding for the legend.
     ///
     /// __Default value:__ <c>"gray"</c>.
     /// </summary>
-    abstract member symbolBaseStrokeColor: U2<Color, SignalRef> option option with get, set
+     symbolBaseStrokeColor: U2<Color, SignalRef> option option 
     /// <summary>
     /// The default direction (<c>"horizontal"</c> or <c>"vertical"</c>) for symbol legends.
     ///
     /// __Default value:__ <c>"vertical"</c>.
     /// </summary>
-    abstract member symbolDirection: Orientation option with get, set
+     symbolDirection: Orientation option 
     /// <summary>
     /// Border stroke dash pattern for the full legend.
     /// </summary>
-    abstract member strokeDash: U2<ResizeArray<float>, SignalRef> option with get, set
+     strokeDash: U2<ResizeArray<float>, SignalRef> option 
     /// <summary>
     /// Border stroke width for the full legend.
     /// </summary>
-    abstract member strokeWidth: U2<float, SignalRef> option with get, set
+     strokeWidth: U2<float, SignalRef> option 
     /// <summary>
     /// Legend orient group layout parameters.
     /// </summary>
-    abstract member layout: LegendLayout option with get, set
+     layout: LegendLayout option        
+    }
+    
 
-[<AllowNullLiteral>]
-[<Interface>]
-type BaseLegendLayout =
+ 
+
+
+type BaseLegendLayout = {
     /// <summary>
     /// The anchor point for legend orient group layout.
     /// </summary>
-    abstract member anchor: U2<TitleAnchor, SignalRef> option with get, set
+     anchor: U2<TitleAnchor, SignalRef> option 
     /// <summary>
     /// The bounds calculation to use for legend orient group layout.
     /// </summary>
-    abstract member bounds: LayoutBounds option with get, set
+     bounds: LayoutBounds option 
     /// <summary>
     /// A flag to center legends within a shared orient group.
     /// </summary>
-    abstract member center: U2<bool, SignalRef> option with get, set
+     center: U2<bool, SignalRef> option 
     /// <summary>
     /// The layout direction for legend orient group layout.
     /// </summary>
-    abstract member direction: U2<Orientation, SignalRef> option with get, set
+     direction: U2<Orientation, SignalRef> option 
     /// <summary>
     /// The pixel margin between legends within a orient group.
     /// </summary>
-    abstract member margin: U2<float, SignalRef> option with get, set
+     margin: U2<float, SignalRef> option 
     /// <summary>
     /// The pixel offset from the chart body for a legend orient group.
     /// </summary>
-    abstract member offset: U2<float, SignalRef> option with get, set
+     offset: U2<float, SignalRef> option 
+}
 
-[<AllowNullLiteral>]
-[<Interface>]
 type LegendLayout =
-    inherit BaseLegendLayout
-    abstract member left: BaseLegendLayout option with get, set
-    abstract member right: BaseLegendLayout option with get, set
-    abstract member top: BaseLegendLayout option with get, set
-    abstract member bottom: BaseLegendLayout option with get, set
-    abstract member ``top-left``: BaseLegendLayout option with get, set
-    abstract member ``top-right``: BaseLegendLayout option with get, set
-    abstract member ``bottom-left``: BaseLegendLayout option with get, set
-    abstract member ``bottom-right``: BaseLegendLayout option with get, set
+    {
+        left: BaseLegendLayout option 
+        right: BaseLegendLayout option 
+        top: BaseLegendLayout option 
+        bottom: BaseLegendLayout option
+        [<CompiledName("top-left")>]
+        topLeft: BaseLegendLayout option
+        [<CompiledName("top-right")>]
+        topRight: BaseLegendLayout option
+        [<CompiledName("bottom-left")>]
+        bottomLeft: BaseLegendLayout option
+        [<CompiledName("bottom-right")>]
+        bottomRight: BaseLegendLayout option
+    }    
+      
 
-type TitleConfig =
-    ExcludeMappedValueRef<BaseTitle>
+type TitleConfig =BaseTitle
 
-type ProjectionConfig =
-    ExcludeMappedValueRef<BaseProjection>
+type ProjectionConfig =BaseProjection
 
-[<AllowNullLiteral>]
-[<Interface>]
-type RangeConfig =
+
+type RangeConfig = {
     /// <summary>
     /// Default [color scheme](https://vega.github.io/vega/docs/schemes/) for categorical data.
     /// </summary>
-    abstract member category: U2<RangeScheme, ResizeArray<Color>> option with get, set
+     category: U2<RangeScheme, ResizeArray<Color>> option 
     /// <summary>
     /// Default [color scheme](https://vega.github.io/vega/docs/schemes/) for diverging quantitative ramps.
     /// </summary>
-    abstract member diverging: U2<RangeScheme, ResizeArray<Color>> option with get, set
+     diverging: U2<RangeScheme, ResizeArray<Color>> option 
     /// <summary>
     /// Default [color scheme](https://vega.github.io/vega/docs/schemes/) for quantitative heatmaps.
     /// </summary>
-    abstract member heatmap: U2<RangeScheme, ResizeArray<Color>> option with get, set
+     heatmap: U2<RangeScheme, ResizeArray<Color>> option 
     /// <summary>
     /// Default [color scheme](https://vega.github.io/vega/docs/schemes/) for rank-ordered data.
     /// </summary>
-    abstract member ordinal: U2<RangeScheme, ResizeArray<Color>> option with get, set
+     ordinal: U2<RangeScheme, ResizeArray<Color>> option 
     /// <summary>
     /// Default [color scheme](https://vega.github.io/vega/docs/schemes/) for sequential quantitative ramps.
     /// </summary>
-    abstract member ramp: U2<RangeScheme, ResizeArray<Color>> option with get, set
+     ramp: U2<RangeScheme, ResizeArray<Color>> option 
     /// <summary>
     /// Array of [symbol](https://vega.github.io/vega/docs/marks/symbol/) names or paths for the default shape palette.
     /// </summary>
-    abstract member symbol: ResizeArray<SymbolShape> option with get, set
-
+     symbol: ResizeArray<SymbolShape> option 
+}
 module Config =
-
-    [<Global>]
-    [<AllowNullLiteral>]
-    type events
-        [<ParamObject; Emit("$0")>]
-        (
-            ?bind: Config.events.bind,
-            ?defaults: DefaultsConfig,
-            ?globalCursor: bool,
-            ?selector: U2<bool, ResizeArray<string>>,
-            ?timer: bool,
-            ?view: U2<bool, ResizeArray<string>>,
-            ?window: U2<bool, ResizeArray<string>>
-        ) =
-
-        member val bind : Config.events.bind option = nativeOnly with get, set
-        member val defaults : DefaultsConfig option = nativeOnly with get, set
-        member val globalCursor : bool option = nativeOnly with get, set
-        member val selector : U2<bool, ResizeArray<string>> option = nativeOnly with get, set
-        member val timer : bool option = nativeOnly with get, set
-        member val view : U2<bool, ResizeArray<string>> option = nativeOnly with get, set
-        member val window : U2<bool, ResizeArray<string>> option = nativeOnly with get, set
-
+    
+    type events = obj
+        
     [<AllowNullLiteral>]
     [<Interface>]
     type style =
