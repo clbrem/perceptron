@@ -180,63 +180,67 @@ type CollectTransform =
     }
     
 
-[<AllowNullLiteral>]
-[<Interface>]
-type CountPatternTransform of CountPatternTransform =
-    ``type``: string
-    field: FieldRef
-    case: U2<string, SignalRef> option
-    pattern: U2<string, SignalRef> option
-    stopwords: U2<string, SignalRef> option
-    ``as``: U2<Vector2<U2<string, SignalRef>>, SignalRef> option
+type CountPatternTransform  =
+    {
+        [<CompiledName("type")>]
+        transformType: string    
+        field: FieldRef
+        case: U2<string, SignalRef> option
+        pattern: U2<string, SignalRef> option
+        stopwords: U2<string, SignalRef> option
+        [<CompiledName("as")>]
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type ContourTransform of ContourTransform =
-    ``type``: string
-    signal: string option
-    size: U2<ResizeArray<U2<float, SignalRef>>, SignalRef>
-    values: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option
-    x: FieldRef option
-    y: FieldRef option
-    cellSize: U2<float, SignalRef> option
-    bandwidth: U2<float, SignalRef> option
-    count: U2<float, SignalRef> option
-    nice: U2<float, SignalRef> option
-    thresholds: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option
 
-[<AllowNullLiteral>]
-[<Interface>]
-type CrossTransform of CrossTransform =
-    ``type``: string
-    filter: ExprString option
-    ``as``: U2<Vector2<U2<string, SignalRef>>, SignalRef> option
+type ContourTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        signal: string option
+        size: U2<ResizeArray<U2<float, SignalRef>>, SignalRef>
+        values: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option
+        x: FieldRef option
+        y: FieldRef option
+        cellSize: U2<float, SignalRef> option
+        bandwidth: U2<float, SignalRef> option
+        count: U2<float, SignalRef> option
+        nice: U2<float, SignalRef> option
+        thresholds: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option        
+    }
+    
 
-[<AllowNullLiteral>]
-[<Interface>]
-type CrossFilterTransform of CrossFilterTransform =
-    ``type``: string
-    fields: U2<ResizeArray<U2<string, TransformField>>, SignalRef>
-    query: U2<ResizeArray<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef>
-    signal: SignalName option
 
-[<AllowNullLiteral>]
-[<Interface>]
-type DensityTransform of DensityTransform =
-    ``type``: string
-    extent: U2<Vector2<U2<float, SignalRef>>, SignalRef> option
-    steps: U2<float, SignalRef> option
-    minsteps: U2<float, SignalRef> option
-    maxsteps: U2<float, SignalRef> option
-    ``method``: DensityTransform of DensityTransform.``method`` option
-    distribution: U2<Distribution, SignalRef> option
-    ``as``: U2<Vector2<U2<string, SignalRef>>, SignalRef> option
+type CrossTransform =
+    {
+       [<CompiledName("type")>]
+       transformType: string
+       filter: ExprString option
+       [<CompiledName("as")>]
+       transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option        
+    }
+    
 
+
+type CrossFilterTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        fields: U2<ResizeArray<U2<string, TransformField>>, SignalRef>
+        query: U2<ResizeArray<U2<Vector.Vec2<U2<float, SignalRef>>, SignalRef>>, SignalRef>
+        signal: SignalName option
+    }
+    
+    
 [<RequireQualifiedAccess>]
 [<StringEnum(CaseRules.None)>]
 type DensityMethod =
     | pdf
     | cdf
+
+
+    
+
 
 [<AllowNullLiteral>]
 [<Interface>]
@@ -277,6 +281,22 @@ type DistributionMixture =
 
 type Distribution =
     U5<DistributionNormal, DistributionLogNormal, DistributionUniform, DistributionKDE, DistributionMixture>
+    
+type DensityTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        extent: U2<Vector.Vec2<U2<float, SignalRef>>, SignalRef> option
+        steps: U2<float, SignalRef> option
+        minsteps: U2<float, SignalRef> option
+        maxsteps: U2<float, SignalRef> option
+        [<CompiledName("method")>]
+        transformMethod: DensityMethod option 
+        distribution: U2<Distribution, SignalRef> option
+        [<CompiledName("as")>]
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option
+    }
+    
 
 [<AllowNullLiteral>]
 [<Interface>]
