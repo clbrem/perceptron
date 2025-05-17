@@ -1,8 +1,7 @@
 namespace Vega
 
 open Fable.Core
-open Fable.Core.JsInterop
-open System
+
 type EventsBind =
     | [<CompiledName("any")>] Any
     | [<CompiledName("container")>] Container
@@ -774,6 +773,48 @@ type AxisConfig =
     /// </summary>
     zindex: float option
 }
+   type BaseLegendLayout = {
+    /// <summary>
+    /// The anchor point for legend orient group layout.
+    /// </summary>
+     anchor: U2<TitleAnchor, SignalRef> option 
+    /// <summary>
+    /// The bounds calculation to use for legend orient group layout.
+    /// </summary>
+     bounds: LayoutBounds option 
+    /// <summary>
+    /// A flag to center legends within a shared orient group.
+    /// </summary>
+     center: U2<bool, SignalRef> option 
+    /// <summary>
+    /// The layout direction for legend orient group layout.
+    /// </summary>
+     direction: U2<Orientation, SignalRef> option 
+    /// <summary>
+    /// The pixel margin between legends within a orient group.
+    /// </summary>
+     margin: U2<float, SignalRef> option 
+    /// <summary>
+    /// The pixel offset from the chart body for a legend orient group.
+    /// </summary>
+     offset: U2<float, SignalRef> option 
+}
+
+type LegendLayout =
+    {
+        left: BaseLegendLayout option 
+        right: BaseLegendLayout option 
+        top: BaseLegendLayout option 
+        bottom: BaseLegendLayout option
+        [<CompiledName("top-left")>]
+        topLeft: BaseLegendLayout option
+        [<CompiledName("top-right")>]
+        topRight: BaseLegendLayout option
+        [<CompiledName("bottom-left")>]
+        bottomLeft: BaseLegendLayout option
+        [<CompiledName("bottom-right")>]
+        bottomRight: BaseLegendLayout option
+    }
 
 
 type LegendConfig = {
@@ -829,48 +870,7 @@ type LegendConfig = {
  
 
 
-type BaseLegendLayout = {
-    /// <summary>
-    /// The anchor point for legend orient group layout.
-    /// </summary>
-     anchor: U2<TitleAnchor, SignalRef> option 
-    /// <summary>
-    /// The bounds calculation to use for legend orient group layout.
-    /// </summary>
-     bounds: LayoutBounds option 
-    /// <summary>
-    /// A flag to center legends within a shared orient group.
-    /// </summary>
-     center: U2<bool, SignalRef> option 
-    /// <summary>
-    /// The layout direction for legend orient group layout.
-    /// </summary>
-     direction: U2<Orientation, SignalRef> option 
-    /// <summary>
-    /// The pixel margin between legends within a orient group.
-    /// </summary>
-     margin: U2<float, SignalRef> option 
-    /// <summary>
-    /// The pixel offset from the chart body for a legend orient group.
-    /// </summary>
-     offset: U2<float, SignalRef> option 
-}
-
-type LegendLayout =
-    {
-        left: BaseLegendLayout option 
-        right: BaseLegendLayout option 
-        top: BaseLegendLayout option 
-        bottom: BaseLegendLayout option
-        [<CompiledName("top-left")>]
-        topLeft: BaseLegendLayout option
-        [<CompiledName("top-right")>]
-        topRight: BaseLegendLayout option
-        [<CompiledName("bottom-left")>]
-        bottomLeft: BaseLegendLayout option
-        [<CompiledName("bottom-right")>]
-        bottomRight: BaseLegendLayout option
-    }    
+    
       
 
 type TitleConfig =BaseTitle
