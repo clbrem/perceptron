@@ -242,45 +242,61 @@ type DensityMethod =
     
 
 
-[<AllowNullLiteral>]
-[<Interface>]
-type DistributionNormal =
-    ``function``: string
-    mean: U2<float, SignalRef> option
-    stdev: U2<float, SignalRef> option
 
-[<AllowNullLiteral>]
-[<Interface>]
+type DistributionNormal = {
+       [<CompiledName("function")>]
+       distributionFunction: string
+       mean: U2<float, SignalRef> option
+       stdev: U2<float, SignalRef> option        
+    }
+
+
+
 type DistributionLogNormal =
-    ``function``: string
+    {
+    [<CompiledName("function")>]
+    distributionFunction: string   
     mean: U2<float, SignalRef> option
     stdev: U2<float, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
+
 type DistributionUniform =
-    ``function``: string
+    {
+    [<CompiledName("function")>]
+    distributionFunction: string
     min: U2<float, SignalRef> option
-    max: U2<float, SignalRef> option
+    max: U2<float, SignalRef> option    
+    }
+    
 
-[<AllowNullLiteral>]
-[<Interface>]
+
+
 type DistributionKDE =
-    ``function``: string
+    {
+    [<CompiledName("function")>]
+    distributionFunction: string
     field: U2<string, TransformField>
     from: DataName option
-    bandwidth: U2<float, SignalRef> option
-
-[<AllowNullLiteral>]
-[<Interface>]
+    bandwidth: U2<float, SignalRef> option    
+    }
+    
 type DistributionMixture =
-    ``function``: string
+    {
+    [<CompiledName("function")>]
+    distributionFunction: string
     field: U2<string, TransformField>
     distributions: U2<ResizeArray<U2<Distribution, SignalRef>>, SignalRef> option
-    weights: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option
+    weights: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option    
+    }
 
-type Distribution =
-    U5<DistributionNormal, DistributionLogNormal, DistributionUniform, DistributionKDE, DistributionMixture>
+and [<Erase>] Distribution =
+    | Normal of DistributionNormal
+    | LogNormal of DistributionLogNormal    
+    | Uniform of DistributionUniform
+    | KDE of DistributionKDE
+    | Mixture of DistributionMixture
+    
     
 type DensityTransform =
     {
@@ -298,191 +314,233 @@ type DensityTransform =
     }
     
 
-[<AllowNullLiteral>]
-[<Interface>]
-type DotBinTransform of DotBinTransform =
-    ``type``: string
-    field: FieldRef
-    groupby: U2<ResizeArray<FieldRef>, SignalRef> option
-    step: U2<float, SignalRef> option
-    smooth: U2<bool, SignalRef> option
-    ``as``: U2<string, SignalRef> option
-    signal: SignalName option
 
-[<AllowNullLiteral>]
-[<Interface>]
-type ExtentTransform of ExtentTransform =
-    ``type``: string
-    field: FieldRef
-    signal: string option
+type DotBinTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string        
+        field: FieldRef
+        groupby: U2<ResizeArray<FieldRef>, SignalRef> option
+        step: U2<float, SignalRef> option
+        smooth: U2<bool, SignalRef> option
+        [<CompiledName("as")>]
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option        
+        signal: SignalName option
+        }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type FilterTransform of FilterTransform =
-    ``type``: string
-    expr: ExprString
 
-[<AllowNullLiteral>]
-[<Interface>]
-type FlattenTransform of FlattenTransform =
-    ``type``: string
-    fields: U2<ResizeArray<FieldRef>, SignalRef>
-    index: U2<string, SignalRef> option
-    ``as``: U2<ResizeArray<U2<string, SignalRef>>, SignalRef> option
+type ExtentTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string   
+        field: FieldRef
+        signal: string option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type FoldTransform of FoldTransform =
-    ``type``: string
-    fields: U2<ResizeArray<FieldRef>, SignalRef>
-    ``as``: U2<Vector2<U2<string, SignalRef>>, SignalRef> option
+type FilterTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        expr: ExprString
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type ForceTransform of ForceTransform =
-    ``type``: string
-    ``static``: U2<bool, SignalRef> option
-    restart: U2<bool, SignalRef> option
-    iterations: U2<float, SignalRef> option
-    alpha: U2<float, SignalRef> option
-    alphaMin: U2<float, SignalRef> option
-    alphaTarget: U2<float, SignalRef> option
-    velocityDecay: U2<float, SignalRef> option
-    forces: U2<ResizeArray<U2<Force, SignalRef>>, SignalRef> option
-    signal: SignalName option
 
-[<AllowNullLiteral>]
-[<Interface>]
+type FlattenTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        fields: U2<ResizeArray<FieldRef>, SignalRef>
+        index: U2<string, SignalRef> option    
+        [<CompiledName("as")>]
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option
+        
+    }
+    
+type FoldTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string     
+        fields: U2<ResizeArray<FieldRef>, SignalRef>
+        [<CompiledName("as")>]
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option    
+    }
+
+
+
+
 type ForceCenter =
-    force: string
-    x: U2<float, SignalRef> option
-    y: U2<float, SignalRef> option
+    {
+        force: string
+        x: U2<float, SignalRef> option
+        y: U2<float, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
+
 type ForceCollide =
-    force: string
-    radius: U3<float, SignalRef, ExprRef> option
-    strength: U2<float, SignalRef> option
-    iterations: U2<float, SignalRef> option
+    {
+       force: string
+       radius: U3<float, SignalRef, ExprRef> option
+       strength: U2<float, SignalRef> option
+       iterations: U2<float, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
+
 type ForceLink =
-    force: string
-    links: DataName option
-    id: FieldRef option
-    distance: U3<float, SignalRef, ExprRef> option
-    strength: U3<float, SignalRef, ExprRef> option
-    iterations: U2<float, SignalRef> option
+    {
+         force: string
+         links: DataName option
+         id: FieldRef option
+         distance: U3<float, SignalRef, ExprRef> option
+         strength: U3<float, SignalRef, ExprRef> option
+         iterations: U2<float, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
+
 type ForceNBody =
-    force: string
-    strength: U3<float, SignalRef, ExprRef> option
-    theta: U2<float, SignalRef> option
-    distanceMin: U2<float, SignalRef> option
-    distanceMax: U2<float, SignalRef> option
+    {
+         force: string
+         strength: U3<float, SignalRef, ExprRef> option
+         theta: U2<float, SignalRef> option
+         distanceMin: U2<float, SignalRef> option
+         distanceMax: U2<float, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
+
 type ForceX =
-    force: string
-    strength: U2<float, SignalRef> option
-    x: FieldRef option
+    {
+        force: string
+        strength: U2<float, SignalRef> option
+        x: FieldRef option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
 type ForceY =
-    force: string
-    strength: U2<float, SignalRef> option
-    y: FieldRef option
-
+    {
+        force: string
+        strength: U2<float, SignalRef> option
+        y: FieldRef option
+    }
+[<Erase>]
 type Force =
-    U6<ForceCenter, ForceCollide, ForceLink, ForceNBody, ForceX, ForceY>
+    | Center of ForceCenter
+    | Collide of ForceCollide
+    | Link of ForceLink
+    | NBody of ForceNBody
+    | X of ForceX
+    | Y of ForceY
+    
+type ForceTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        [<CompiledName("static")>]
+        transformStatic: U2<bool, SignalRef> option      
+        restart: U2<bool, SignalRef> option
+        iterations: U2<float, SignalRef> option
+        alpha: U2<float, SignalRef> option
+        alphaMin: U2<float, SignalRef> option
+        alphaTarget: U2<float, SignalRef> option
+        velocityDecay: U2<float, SignalRef> option
+        forces: U2<ResizeArray<U2<Force, SignalRef>>, SignalRef> option
+        signal: SignalName option}    
 
-[<AllowNullLiteral>]
-[<Interface>]
-type FormulaTransform of FormulaTransform =
-    ``type``: string
-    expr: ExprString
-    initonly: bool option
-    ``as``: U2<string, SignalRef>
 
-[<AllowNullLiteral>]
-[<Interface>]
-type GeoJSONTransform of GeoJSONTransform =
-    ``type``: string
-    fields: U2<Vector2<FieldRef>, SignalRef> option
-    geojson: FieldRef option
-    signal: SignalName option
+type FormulaTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        expr: ExprString
+        initonly: bool option
+        [<CompiledName("as")>]
+        transformAs: U2<string, SignalRef>
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type GeoPointTransform of GeoPointTransform =
-    ``type``: string
-    projection: ProjectionName
-    fields: U2<Vector2<FieldRef>, SignalRef>
-    ``as``: U2<Vector2<U2<string, SignalRef>>, SignalRef> option
+type GeoJSONTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        fields: U2<Vector.Vec2<FieldRef>, SignalRef> option
+        geojson: FieldRef option
+        signal: SignalName option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type GeoPathTransform of GeoPathTransform =
-    ``type``: string
-    projection: ProjectionName option
-    field: FieldRef option
-    pointRadius: U3<float, SignalRef, ExprRef> option
-    ``as``: U2<string, SignalRef> option
 
-[<AllowNullLiteral>]
-[<Interface>]
-type GeoShapeTransform of GeoShapeTransform =
-    ``type``: string
-    projection: ProjectionName option
-    field: FieldRef option
-    pointRadius: U3<float, SignalRef, ExprRef> option
-    ``as``: U2<string, SignalRef> option
+type GeoPointTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string        
+        projection: ProjectionName
+        fields: U2<Vector.Vec2<FieldRef>, SignalRef>
+        [<CompiledName("as")>]        
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type GraticuleTransform of GraticuleTransform =
-    ``type``: string
-    signal: SignalName option
-    extent: U2<Vector2<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef> option
-    extentMajor: U2<Vector2<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef> option
-    extentMinor: U2<Vector2<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef> option
-    step: U2<Vector2<U2<float, SignalRef>>, SignalRef> option
-    stepMajor: U2<Vector2<U2<float, SignalRef>>, SignalRef> option
-    stepMinor: U2<Vector2<U2<float, SignalRef>>, SignalRef> option
-    precision: U2<float, SignalRef> option
 
-[<AllowNullLiteral>]
-[<Interface>]
-type HeatmapTransform of HeatmapTransform =
-    ``type``: string
-    field: U2<string, TransformField> option
-    color: U2<string, TransformField> option
-    opacity: U2<float, TransformField> option
-    resolve: HeatmapTransform of HeatmapTransform.resolve option
-    ``as``: U2<string, SignalRef> option
+type GeoPathTransform  =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        projection: ProjectionName option
+        field: FieldRef option
+        pointRadius: U3<float, SignalRef, ExprRef> option
+        [<CompiledName("as")>]        
+        transformAs: U2<string, SignalRef> option
+    }
+    
 
-[<AllowNullLiteral>]
-[<Interface>]
-type IdentifierTransform of IdentifierTransform =
-    ``type``: string
-    ``as``: U2<string, SignalRef>
 
-[<AllowNullLiteral>]
-[<Interface>]
-type ImputeTransform of ImputeTransform =
-    ``type``: string
-    field: FieldRef
-    key: FieldRef
-    keyvals: U2<ResizeArray<obj>, SignalRef> option
-    groupby: U2<ResizeArray<FieldRef>, SignalRef> option
-    ``method``: ImputeTransform of ImputeTransform.``method`` option
-    value: obj option
+type GeoShapeTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string    
+        projection: ProjectionName option
+        field: FieldRef option
+        pointRadius: U3<float, SignalRef, ExprRef> option
+        [<CompiledName("as")>]        
+        transformAs: U2<string, SignalRef> option        
+    }
+
+
+type GraticuleTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string       
+        signal: SignalName option
+        extent: U2<Vector.Vec2<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef> option
+        extentMajor: U2<Vector.Vec2<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef> option
+        extentMinor: U2<Vector.Vec2<U2<Vector2<U2<float, SignalRef>>, SignalRef>>, SignalRef> option
+        step: U2<Vector.Vec2<U2<float, SignalRef>>, SignalRef> option
+        stepMajor: U2<Vector.Vec2<U2<float, SignalRef>>, SignalRef> option
+        stepMinor: U2<Vector.Vec2<U2<float, SignalRef>>, SignalRef> option
+        precision: U2<float, SignalRef> option
+    }
+
+[<RequireQualifiedAccess>]
+[<StringEnum(CaseRules.None)>]
+type TransformResolve =
+    | shared
+    | independent
+
+type HeatmapTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        field: U2<string, TransformField> option
+        color: U2<string, TransformField> option
+        opacity: U2<float, TransformField> option
+        resolve: TransformResolve option
+        [<CompiledName("as")>]        
+        transformAs: U2<string, SignalRef> option
+
+    }
+
+
+type IdentifierTransform  =
+    {
+        [<CompiledName("type")>]
+        transformType: string    
+        [<CompiledName("as")>]        
+        transformAs: U2<string, SignalRef>
+    }     
 
 [<RequireQualifiedAccess>]
 [<StringEnum(CaseRules.None)>]
@@ -493,65 +551,95 @@ type ImputeMethod =
     | min
     | mean
 
-[<AllowNullLiteral>]
-[<Interface>]
-type IsocontourTransform of IsocontourTransform =
-    ``type``: string
-    field: U2<string, TransformField> option
-    scale: U2<float, TransformField> option
-    translate: U2<ResizeArray<float>, TransformField> option
-    levels: U2<float, SignalRef> option
-    smooth: U2<bool, SignalRef> option
-    nice: U2<bool, SignalRef> option
-    zero: U2<bool, SignalRef> option
-    resolve: IsocontourTransform of IsocontourTransform.resolve option
-    thresholds: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option
-    ``as``: U2<string, SignalRef> option option
+type ImputeTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        field: FieldRef
+        key: FieldRef
+        keyvals: U2<ResizeArray<obj>, SignalRef> option
+        groupby: U2<ResizeArray<FieldRef>, SignalRef> option
+        [<CompiledName("method")>]
+        transformMethod: ImputeMethod option
+        value: obj option
+    }
 
-[<AllowNullLiteral>]
-[<Interface>]
-type JoinAggregateTransform of JoinAggregateTransform =
-    ``type``: string
-    groupby: U2<ResizeArray<FieldRef>, SignalRef> option
-    ops: U2<ResizeArray<JoinAggregateTransform of JoinAggregateTransform.ops.U2.Case1>, SignalRef> option
-    fields: U2<ResizeArray<FieldRef option>, SignalRef> option
-    ``as``: U2<ResizeArray<U2<string, SignalRef> option>, SignalRef> option
 
-[<AllowNullLiteral>]
-[<Interface>]
-type KDETransform of KDETransform =
-    ``type``: string
-    field: FieldRef
-    groupby: U2<ResizeArray<FieldRef>, SignalRef> option
-    cumulative: U2<bool, SignalRef> option
-    counts: U2<bool, SignalRef> option
-    bandwidth: U2<float, SignalRef> option
-    extent: U2<Vector2<U2<float, SignalRef>>, SignalRef> option
-    resolve: KDETransform of KDETransform.resolve option
-    steps: U2<float, SignalRef> option
-    minsteps: U2<float, SignalRef> option
-    maxsteps: U2<float, SignalRef> option
-    ``as``: U2<Vector2<U2<string, SignalRef>>, SignalRef> option
+
+type IsocontourTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        ``type``: string
+        field: U2<string, TransformField> option
+        scale: U2<float, TransformField> option
+        translate: U2<ResizeArray<float>, TransformField> option
+        levels: U2<float, SignalRef> option
+        smooth: U2<bool, SignalRef> option
+        nice: U2<bool, SignalRef> option
+        zero: U2<bool, SignalRef> option
+        resolve: TransformResolve option
+        thresholds: U2<ResizeArray<U2<float, SignalRef>>, SignalRef> option
+        [<CompiledName("as")>]
+        transformAs: U2<string, SignalRef> option option
+        }
 
 [<RequireQualifiedAccess>]
 [<StringEnum(CaseRules.None)>]
-type KDEResolve =
-    | shared
-    | independent
+type JoinAggregateOps =
+    | argmax
+    | argmin
+    | average
+    | count
+    | distinct
+    | max
+    | mean
+    | median
+    | min
+    | missing
+    | product
+    | q1
+    | q3
+    | ci0
+    | ci1
+    | stderr
+    | stdev
+    | stdevp
+    | sum
+    | valid
+    | values
+    | variance
+    | variancep
+    | exponential
+    | exponentialb
 
-[<AllowNullLiteral>]
-[<Interface>]
-type LinkPathTransform of LinkPathTransform =
-    ``type``: string
-    sourceX: FieldRef option
-    sourceY: FieldRef option
-    targetX: FieldRef option
-    targetY: FieldRef option
-    orient: LinkPathTransform of LinkPathTransform.orient option
-    shape: LinkPathTransform of LinkPathTransform.shape option
-    require: SignalRef option
-    ``as``: U2<string, SignalRef> option
-
+type JoinAggregateTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string    
+        groupby: U2<ResizeArray<FieldRef>, SignalRef> option
+        ops: U2<ResizeArray<JoinAggregateOps>, SignalRef> option
+        fields: U2<ResizeArray<FieldRef option>, SignalRef> option
+        [<CompiledName("as")>]
+        transformAs: U2<ResizeArray<U2<string, SignalRef> option>, SignalRef> option
+    }
+    
+type KDETransform = {
+        [<CompiledName("type")>]
+        transformType: string
+        field: FieldRef
+        groupby: U2<ResizeArray<FieldRef>, SignalRef> option
+        cumulative: U2<bool, SignalRef> option
+        counts: U2<bool, SignalRef> option
+        bandwidth: U2<float, SignalRef> option
+        extent: U2<Vector.Vec2<U2<float, SignalRef>>, SignalRef> option
+        resolve: TransformResolve option
+        steps: U2<float, SignalRef> option
+        minsteps: U2<float, SignalRef> option
+        maxsteps: U2<float, SignalRef> option
+        [<CompiledName("as")>]
+        transformAs: U2<Vector.Vec2<U2<string, SignalRef>>, SignalRef> option
+    }
 [<RequireQualifiedAccess>]
 [<StringEnum(CaseRules.None)>]
 type LinkPathOrient =
@@ -568,8 +656,21 @@ type LinkPathShape =
     | diagonal
     | orthogonal
 
-[<AllowNullLiteral>]
-[<Interface>]
+type LinkPathTransform =
+    {
+        [<CompiledName("type")>]
+        transformType: string
+        sourceX: FieldRef option
+        sourceY: FieldRef option
+        targetX: FieldRef option
+        targetY: FieldRef option
+        orient: LinkPathOrient option
+        shape: LinkPathShape option
+        require: SignalRef option
+        [<CompiledName("as")>]
+        transformAs: U2<string, SignalRef> option
+        }
+
 type KDE2DTransform of KDE2DTransform =
     ``type``: string
     size: U2<ResizeArray<U2<float, SignalRef>>, SignalRef>
@@ -986,22 +1087,13 @@ module Transforms =
 
                 [<RequireQualifiedAccess>]
                 [<StringEnum(CaseRules.None)>]
-                type resolve =
-                    | independent
-                    | shared
+                
 
         module Case23 =
 
             module ImputeTransform of ImputeTransform =
 
-                [<RequireQualifiedAccess>]
-                [<StringEnum(CaseRules.None)>]
-                type ``method`` =
-                    | value
-                    | median
-                    | max
-                    | min
-                    | mean
+                
 
         module Case24 =
 
